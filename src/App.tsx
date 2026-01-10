@@ -77,16 +77,6 @@ const Presentation = () => {
               </div>
             ))}
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-300"
-          >
-            <span className="text-sm font-medium">Press → to continue</span>
-            <ChevronRight size={20} className="animate-pulse" />
-          </motion.div>
         </div>
       )
     },
@@ -99,31 +89,28 @@ const Presentation = () => {
       content: (
         <div className="grid grid-cols-5 gap-8 h-full items-center">
           {/* Left: TAM/SAM/SOM Funnel */}
-          <div className="col-span-2 flex flex-col justify-center space-y-5">
+          <div className="col-span-2 flex flex-col justify-center space-y-8">
             {[
               { 
                 label: "TAM", 
                 name: "Total Addressable", 
                 value: "€187M", 
                 desc: "All Romanian healthcare providers",
-                color: "from-indigo-500 to-indigo-600",
-                width: "100%"
+                color: "from-indigo-500 to-indigo-600"
               },
               { 
                 label: "SAM", 
                 name: "Serviceable Available", 
                 value: "€56M", 
                 desc: "Private sector + progressive public",
-                color: "from-violet-500 to-violet-600",
-                width: "75%"
+                color: "from-violet-500 to-violet-600"
               },
               { 
                 label: "SOM", 
                 name: "Serviceable Obtainable", 
                 value: "€9.4M", 
                 desc: "Year 3 realistic capture",
-                color: "from-fuchsia-500 to-fuchsia-600",
-                width: "50%"
+                color: "from-fuchsia-500 to-fuchsia-600"
               }
             ].map((tier, i) => (
               <motion.div
@@ -131,21 +118,22 @@ const Presentation = () => {
                 initial={{ x: -30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: i * 0.15 }}
-                className="relative"
-                style={{ width: tier.width }}
+                className="w-full"
               >
                 <div className={cn(
-                  "p-6 rounded-2xl bg-gradient-to-r text-white shadow-lg",
+                  "p-7 rounded-2xl bg-gradient-to-r text-white shadow-lg",
                   tier.color
                 )}>
-                  <div className="flex items-baseline justify-between">
-                    <div>
-                      <span className="text-xs font-bold opacity-70">{tier.label}</span>
-                      <p className="text-sm font-medium opacity-90">{tier.name}</p>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-lg font-black tracking-wide">{tier.label}</span>
+                        <span className="text-sm font-semibold opacity-80">{tier.name}</span>
+                      </div>
+                      <p className="text-sm opacity-85 leading-relaxed">{tier.desc}</p>
                     </div>
-                    <span className="text-3xl font-black">{tier.value}</span>
+                    <span className="text-4xl font-black shrink-0">{tier.value}</span>
                   </div>
-                  <p className="text-xs mt-2 opacity-80">{tier.desc}</p>
                 </div>
               </motion.div>
             ))}
