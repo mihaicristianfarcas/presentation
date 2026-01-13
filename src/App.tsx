@@ -845,7 +845,7 @@ const Presentation = () => {
           </div>
 
           {/* Key Metrics Summary */}
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-5 gap-4 top-12">
             {[
               { label: "TAM", value: "€187M", icon: PieChart },
               { label: "Break-even", value: "70 users", icon: Target },
