@@ -369,7 +369,6 @@ const Presentation = () => {
 									{ feature: "Price/Month", us: "€12", dragon: "€150+", manual: "€400+", generic: "€0-20" },
 									{ feature: "Medicat Terms Extraction", us: "✓", dragon: "✓", manual: "✗", generic: "✗" },
 									{ feature: "Setup Time", us: "5 min", dragon: "2 weeks", manual: "N/A", generic: "30 min" },
-									{ feature: "GDPR", us: "✓", dragon: "✗", manual: "✓", generic: "✗" }
 								].map((row, i) => (
 									<tr key={i} className={cn("border-b border-zinc-50", i % 2 === 0 && "bg-zinc-50/50")}>
 										<td className="p-5 font-semibold text-zinc-700">{row.feature}</td>
