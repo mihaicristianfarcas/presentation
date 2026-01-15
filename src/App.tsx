@@ -15,8 +15,8 @@ function cn(...inputs: ClassValue[]) {
 
 // Slide metadata - update this when adding/removing slides
 export const SLIDE_INFO = [
-	{ id: 'title', name: 'Title' },
 	{ id: 'problem', name: 'The Problem' },
+	{ id: 'title', name: 'Title' },
 	{ id: 'market', name: 'Market Opportunity' },
 	{ id: 'competition', name: 'Competition' },
 	{ id: 'value-prop', name: 'Value Proposition' },
@@ -35,11 +35,11 @@ const Presentation = () => {
 	useEffect(() => {
 		const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 		const socket = new WebSocket(`${protocol}//${window.location.host}/ws`);
-		
+
 		socket.onopen = () => {
 			setWs(socket);
 		};
-		
+
 		socket.onmessage = (event) => {
 			try {
 				const msg = JSON.parse(event.data);
@@ -68,11 +68,11 @@ const Presentation = () => {
 				console.error('WS parse error:', e);
 			}
 		};
-		
+
 		socket.onclose = () => {
 			setWs(null);
 		};
-		
+
 		return () => {
 			socket.close();
 		};
@@ -86,71 +86,7 @@ const Presentation = () => {
 	}, [currentSlide, ws]);
 
 	const slides = [
-		// SLIDE 1: Title
-		{
-			id: 'title',
-			content: (
-				<div className="flex flex-col items-center justify-center h-full text-center space-y-12">
-					<motion.div
-						initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
-						animate={{ scale: 1, opacity: 1, rotate: 0 }}
-						transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-						className="relative"
-					>
-						<div className="w-44 h-44 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-indigo-500/30">
-							<Mic size={88} className="text-white" strokeWidth={1.5} />
-						</div>
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: 1 }}
-							transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
-							className="absolute -top-3 -right-3 w-10 h-10 bg-emerald-400 rounded-full flex items-center justify-center"
-						>
-							<Zap size={20} className="text-white" />
-						</motion.div>
-					</motion.div>
-
-					<div className="space-y-6">
-						<motion.h1
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ delay: 0.2 }}
-							className="text-9xl font-black tracking-tight text-zinc-900"
-						>
-							MaxOn<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">Scribe</span>
-						</motion.h1>
-						<motion.p
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ delay: 0.3 }}
-							className="text-3xl text-zinc-500 font-medium max-w-4xl mx-auto"
-						>
-							AI-Powered Medical Documentation for Romanian Healthcare
-						</motion.p>
-					</div>
-
-					<motion.div
-						initial={{ y: 20, opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						transition={{ delay: 0.4 }}
-						className="flex items-center gap-12 pt-6"
-					>
-						{[
-							{ icon: Mic, label: "Voice-to-Text" },
-							{ icon: Cpu, label: "AI Extraction" },
-							{ icon: Globe, label: "Romanian Native" }
-						].map((item, i) => (
-							<div key={i} className="flex items-center gap-3 text-zinc-500">
-								<item.icon size={24} />
-								<span className="font-semibold text-xl">{item.label}</span>
-							</div>
-						))}
-					</motion.div>
-				</div>
-			)
-		},
-
-		// SLIDE 2: The Problem
+		// SLIDE 1: The Problem
 		{
 			id: 'problem',
 			title: "THE REALITY",
@@ -209,6 +145,70 @@ const Presentation = () => {
 								<span className="text-indigo-600">Typing.</span>
 							</motion.div>
 						</div>
+					</motion.div>
+				</div>
+			)
+		},
+
+		// SLIDE 2: Title
+		{
+			id: 'title',
+			content: (
+				<div className="flex flex-col items-center justify-center h-full text-center space-y-12">
+					<motion.div
+						initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
+						animate={{ scale: 1, opacity: 1, rotate: 0 }}
+						transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+						className="relative"
+					>
+						<div className="w-44 h-44 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-indigo-500/30">
+							<Mic size={88} className="text-white" strokeWidth={1.5} />
+						</div>
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
+							className="absolute -top-3 -right-3 w-10 h-10 bg-emerald-400 rounded-full flex items-center justify-center"
+						>
+							<Zap size={20} className="text-white" />
+						</motion.div>
+					</motion.div>
+
+					<div className="space-y-6">
+						<motion.h1
+							initial={{ y: 20, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ delay: 0.2 }}
+							className="text-9xl font-black tracking-tight text-zinc-900"
+						>
+							MaxOn<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">Scribe</span>
+						</motion.h1>
+						<motion.p
+							initial={{ y: 20, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ delay: 0.3 }}
+							className="text-3xl text-zinc-500 font-medium max-w-4xl mx-auto"
+						>
+							AI-Powered Medical Documentation for Romanian Healthcare
+						</motion.p>
+					</div>
+
+					<motion.div
+						initial={{ y: 20, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						transition={{ delay: 0.4 }}
+						className="flex items-center gap-12 pt-6"
+					>
+						{[
+							{ icon: Mic, label: "Voice-to-Text" },
+							{ icon: Cpu, label: "AI Extraction" },
+							{ icon: Globe, label: "Romanian Native" }
+						].map((item, i) => (
+							<div key={i} className="flex items-center gap-3 text-zinc-500">
+								<item.icon size={24} />
+								<span className="font-semibold text-xl">{item.label}</span>
+							</div>
+						))}
 					</motion.div>
 				</div>
 			)
@@ -518,7 +518,7 @@ const Presentation = () => {
 						{/* Costs & Unit Economics */}
 						<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex-1 flex flex-col">
 							<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-5">Costs & Unit Economics</h3>
-							
+
 							{/* Cost breakdown */}
 							<div className="grid grid-cols-2 gap-4 mb-5">
 								<div className="bg-zinc-50 rounded-xl p-4">
@@ -557,7 +557,7 @@ const Presentation = () => {
 					{/* Right: Growth Chart with Break-even */}
 					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
 						<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-4">Growth & Break-even</h3>
-						
+
 						{/* Visual Chart */}
 						<div className="flex-1 flex items-end gap-8 pb-8 pt-10">
 							{/* Break-even marker */}
@@ -572,7 +572,7 @@ const Presentation = () => {
 								</div>
 								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500 whitespace-nowrap">Mo 4-6</div>
 							</motion.div>
-							
+
 							{/* Year 1 */}
 							<motion.div
 								initial={{ height: 0 }}
@@ -583,7 +583,7 @@ const Presentation = () => {
 								<div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-bold text-indigo-600">€84K</div>
 								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y1</div>
 							</motion.div>
-							
+
 							{/* Year 2 */}
 							<motion.div
 								initial={{ height: 0 }}
@@ -594,7 +594,7 @@ const Presentation = () => {
 								<div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-bold text-indigo-600">€420K</div>
 								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y2</div>
 							</motion.div>
-							
+
 							{/* Year 3 */}
 							<motion.div
 								initial={{ height: 0 }}
@@ -797,7 +797,7 @@ const Presentation = () => {
 						className="w-full h-full flex flex-col"
 					>
 						{/* Header */}
-						{currentSlide > 0 && slides[currentSlide].title && (
+						{slides[currentSlide].id !== 'title' && slides[currentSlide].title && (
 							<motion.div
 								initial={{ opacity: 0, y: -10 }}
 								animate={{ opacity: 1, y: 0 }}
@@ -847,7 +847,7 @@ const Presentation = () => {
 				</div>
 
 				{/* Remote URL - only on title slide */}
-				{networkIP && currentSlide === 0 && (
+				{networkIP && slides[currentSlide].id === 'title' && (
 					<div className="text-[10px] text-zinc-300/30 font-mono">
 						{networkIP}:5173/present
 					</div>
