@@ -26,10 +26,19 @@ export const SLIDE_INFO = [
 export const TOTAL_SLIDES = SLIDE_INFO.length;
 
 const Presentation = () => {
-	const [currentSlide, setCurrentSlide] = useState(0);
+	const [currentSlide, setCurrentSlide] = useState(() => {
+		const saved = localStorage.getItem('presentation_slide');
+		const initial = saved ? parseInt(saved, 10) : 0;
+		return isNaN(initial) ? 0 : initial;
+	});
 	const [direction, setDirection] = useState(0);
 	const [ws, setWs] = useState<WebSocket | null>(null);
 	const [networkIP, setNetworkIP] = useState<string>('');
+
+	// Save slide to local storage
+	useEffect(() => {
+		localStorage.setItem('presentation_slide', currentSlide.toString());
+	}, [currentSlide]);
 
 	// WebSocket connection for remote control
 	useEffect(() => {
@@ -736,10 +745,24 @@ const Presentation = () => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
 			if (e.key === 'ArrowLeft') prevSlide();
+
+			// Jump to slide with Alt/Option + Number
+			// We use e.code because Option+Number on Mac produces special chars (e.g. ¡ for 1)
+			if (e.altKey && /^Digit[1-9]$/.test(e.code)) {
+				e.preventDefault();
+				const index = parseInt(e.code.replace('Digit', ''), 10) - 1;
+				if (index < slides.length) {
+					// Determine direction for animation
+					if (index !== currentSlide) {
+						setDirection(index > currentSlide ? 1 : -1);
+						setCurrentSlide(index);
+					}
+				}
+			}
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [nextSlide, prevSlide]);
+	}, [nextSlide, prevSlide, currentSlide, slides.length]);
 
 	const variants = {
 		enter: (direction: number) => ({
@@ -781,7 +804,7 @@ const Presentation = () => {
 
 			{/* Main Content */}
 			<div className="relative w-full max-w-7xl aspect-[16/9] px-16 z-10">
-				<AnimatePresence initial={false} custom={direction} mode="wait">
+				<AnimatePresence custom={direction} mode="wait">
 					<motion.div
 						key={currentSlide}
 						custom={direction}
