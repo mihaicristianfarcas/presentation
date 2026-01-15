@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
 	ChevronLeft, ChevronRight, Mic, Layout, Users, BarChart3, Target, PieChart,
 	TrendingUp, CheckCircle2, Zap, Shield, Clock, DollarSign, Award, Layers,
-	ArrowRight, Globe, Building2, UserCheck, Briefcase, Database, Cpu, HeartPulse
+	ArrowRight, Globe, Building2, UserCheck, Briefcase, Database, Cpu, HeartPulse,
+	FileText, AlertCircle
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -81,94 +82,71 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 2: Value Proposition
+		// SLIDE 2: The Problem
 		{
-			id: 'value-prop',
-			title: "VALUE PROPOSITION",
-			subtitle: "Focus on what matters",
+			id: 'problem',
+			title: "THE REALITY",
+			subtitle: "Healthcare is drowning in paperwork",
 			content: (
-				<div className="grid grid-cols-2 gap-10 h-full">
-					{/* Left: Key Benefits */}
-					<div className="flex flex-col h-full gap-6">
-						<div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-sm flex-1 flex flex-col">
-							<h3 className="text-2xl font-bold text-zinc-800 mb-8 flex items-center gap-3">
-								<Zap className="text-amber-500" size={28} />
-								What Doctors Get
-							</h3>
-							<div className="flex-1 flex flex-col justify-between">
-								{[
-									{ benefit: "70% Time Reduction", detail: "From 45min to 12min per patient" },
-									{ benefit: "Automatic ICD-10 Codes", detail: "No manual lookups needed" },
-									{ benefit: "Professional DOCX Export", detail: "Print-ready, legally compliant" },
-									{ benefit: "98% Medical Accuracy", detail: "Romanian terminology fine-tuned" }
-								].map((item, i) => (
-									<motion.div
-										key={i}
-										className="flex items-start gap-4"
-										initial={{ x: -20, opacity: 0 }}
-										animate={{ x: 0, opacity: 1 }}
-										transition={{ delay: i * 0.1 }}
-									>
-										<CheckCircle2 className="text-emerald-500 shrink-0 mt-1" size={28} />
-										<div>
-											<p className="font-bold text-2xl text-zinc-800">{item.benefit}</p>
-											<p className="text-xl text-zinc-500 mt-1">{item.detail}</p>
-										</div>
-									</motion.div>
-								))}
-							</div>
+				<div className="flex flex-col items-center justify-center h-full max-w-5xl mx-auto">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.2 }}
+						className="text-center space-y-16"
+					>
+						<div className="space-y-6">
+							<p className="text-5xl font-medium text-zinc-800 leading-tight">
+								Romanian doctors spend <span className="text-rose-500 font-bold">2.1 hours per day</span> on <b>paperwork</b>.
+							</p>
 						</div>
 
-						{/* Emotional Quote */}
 						<motion.div
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ delay: 0.5 }}
-							className="bg-gradient-to-r from-indigo-500 to-violet-600 rounded-2xl p-6 text-white"
+							initial={{ scale: 0.9, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							transition={{ delay: 1.5, duration: 0.4 }}
+							className="bg-zinc-900 text-white py-8 px-12 rounded-3xl inline-block shadow-xl"
 						>
-							<p className="text-2xl italic font-medium">"I got my husband back."</p>
-							<p className="text-lg opacity-80 mt-2">— Dr. Popescu's wife</p>
+							<p className="text-6xl font-black tracking-tight">
+								That's 750+ hours a year.
+							</p>
 						</motion.div>
-					</div>
 
-					{/* Right: vs. Substitutes */}
-					<div className="bg-zinc-800 rounded-3xl p-8 text-white h-full flex flex-col">
-						<h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-							<Target size={28} className="text-amber-400" />
-							Why Not Alternatives?
-						</h3>
-						<div className="flex-1 flex flex-col justify-between gap-3">
-							{[
-								{ sub: "Dragon Medical", problem: "€150/mo, poor Romanian", us: "€12/mo, native Romanian" },
-								{ sub: "Hiring a Secretary", problem: "€400+/mo, sick days, turnover", us: "10x cheaper, always available" },
-								{ sub: "Generic Speech-to-Text", problem: "No HIPAA compliance, no medical context", us: "Full medical extraction" },
-								{ sub: "Manual Typing", problem: "3 hours every evening", us: "Done in real-time" }
-							].map((item, i) => (
-								<motion.div
-									key={i}
-									className="bg-white/10 rounded-xl py-3 px-5"
-									initial={{ x: 20, opacity: 0 }}
-									animate={{ x: 0, opacity: 1 }}
-									transition={{ delay: 0.2 + i * 0.1 }}
-								>
-									<span className="text-zinc-400 text-xl line-through">{item.sub}</span>
-									<div className="flex items-center gap-5 mt-2">
-										<ArrowRight size={20} className="text-rose-400 shrink-0" />
-										<span className="text-rose-300 text-lg">{item.problem}</span>
-									</div>
-									<div className="flex items-center gap-3 mt-2">
-										<CheckCircle2 size={20} className="text-emerald-400 shrink-0" />
-										<span className="text-emerald-400 text-lg font-semibold">{item.us}</span>
-									</div>
-								</motion.div>
-							))}
+						<div className="grid grid-cols-3 gap-8 text-3xl font-bold text-zinc-400 pt-8">
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ delay: 2.5 }}
+								className="flex flex-col items-center gap-4"
+							>
+								<HeartPulse size={48} className="text-zinc-300" />
+								<span className="line-through decoration-rose-400 decoration-4">Not healing.</span>
+							</motion.div>
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ delay: 3.5 }}
+								className="flex flex-col items-center gap-4"
+							>
+								<UserCheck size={48} className="text-zinc-300" />
+								<span className="line-through decoration-rose-400 decoration-4">Not diagnosing.</span>
+							</motion.div>
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ delay: 4.5 }}
+								className="flex flex-col items-center gap-4"
+							>
+								<FileText size={48} className="text-indigo-500" />
+								<span className="text-indigo-600">Typing.</span>
+							</motion.div>
 						</div>
-					</div>
+					</motion.div>
 				</div>
 			)
 		},
 
-		// SLIDE 3: Market + Segmentation Combined
+		// SLIDE 3: Market
 		{
 			id: 'market',
 			title: "MARKET OPPORTUNITY",
@@ -207,7 +185,7 @@ const Presentation = () => {
 								<p className="text-lg text-emerald-600 font-medium mt-2">CAGR Growth</p>
 							</div>
 							<div className="bg-amber-50 rounded-2xl p-6 border border-amber-100">
-								<p className="text-5xl font-black text-amber-700">€2.1B</p>
+								<p className="text-5xl font-black text-amber-700">€400M</p>
 								<p className="text-lg text-amber-600 font-medium mt-2">EU Digital Funds</p>
 							</div>
 						</div>
@@ -321,9 +299,9 @@ const Presentation = () => {
 								{[
 									{ feature: "Romanian Medical Terms", us: "★★★★★", dragon: "★★☆☆☆", manual: "★★★★☆", generic: "★☆☆☆☆" },
 									{ feature: "Price/Month", us: "€12", dragon: "€150+", manual: "€400+", generic: "€0-20" },
-									{ feature: "ICD-10 Extraction", us: "✓", dragon: "✓", manual: "✗", generic: "✗" },
+									{ feature: "Medicat Terms Extraction", us: "✓", dragon: "✓", manual: "✗", generic: "✗" },
 									{ feature: "Setup Time", us: "5 min", dragon: "2 weeks", manual: "N/A", generic: "30 min" },
-									{ feature: "GDPR Local Storage", us: "✓", dragon: "✗", manual: "✓", generic: "✗" }
+									{ feature: "GDPR", us: "✓", dragon: "✗", manual: "✓", generic: "✗" }
 								].map((row, i) => (
 									<tr key={i} className={cn("border-b border-zinc-50", i % 2 === 0 && "bg-zinc-50/50")}>
 										<td className="p-5 font-semibold text-zinc-700">{row.feature}</td>
@@ -350,91 +328,83 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 5: AI Architecture
+		// SLIDE 5: Value Proposition (Restored)
 		{
-			id: 'technology',
-			title: "AI ARCHITECTURE",
-			subtitle: "Fine-Tuned for Romanian Healthcare",
+			id: 'value-prop',
+			title: "VALUE PROPOSITION",
+			subtitle: "Focus on what matters",
 			content: (
-				<div className="flex flex-col items-center justify-center h-full space-y-12">
-					<div className="flex items-center gap-8 w-full px-8">
-						{/* Input */}
-						<motion.div
-							initial={{ x: -50, opacity: 0 }}
-							animate={{ x: 0, opacity: 1 }}
-							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
-						>
-							<div className="w-20 h-20 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-zinc-600">
-								<Mic size={40} />
+				<div className="grid grid-cols-2 gap-10 h-full">
+					{/* Left: Key Benefits */}
+					<div className="flex flex-col h-full gap-6">
+						<div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-sm flex-1 flex flex-col">
+							<h3 className="text-2xl font-bold text-zinc-800 mb-8 flex items-center gap-5">
+								<Zap className="text-amber-500" size={28} />
+								What Doctors Get
+							</h3>
+							<div className="flex-1 flex flex-col justify-center gap-18">
+								{[
+									{ benefit: "70% Time Reduction", detail: "From 45min to 12min per patient" },
+									{ benefit: "Automatic ICD-10 Codes", detail: "No manual lookups needed" },
+									{ benefit: "Professional DOCX Export", detail: "Print-ready, legally compliant" },
+									{ benefit: "98% Medical Accuracy", detail: "Romanian terminology fine-tuned" }
+								].map((item, i) => (
+									<motion.div
+										key={i}
+										className="flex items-start gap-2"
+										initial={{ x: -20, opacity: 0 }}
+										animate={{ x: 0, opacity: 1 }}
+										transition={{ delay: i * 0.1 }}
+									>
+										<CheckCircle2 className="text-emerald-500 shrink-0 mt-1" size={28} />
+										<div>
+											<p className="font-bold text-2xl text-zinc-800">{item.benefit}</p>
+											<p className="text-xl text-zinc-500 mt-1">{item.detail}</p>
+										</div>
+									</motion.div>
+								))}
 							</div>
-							<h3 className="text-2xl font-bold text-zinc-900">Raw Audio</h3>
-							<p className="text-lg text-zinc-500 mt-2">Romanian • Medical • Noisy</p>
-						</motion.div>
-
-						<ArrowRight size={48} className="text-zinc-300" />
-
-						{/* Processing */}
-						<motion.div
-							initial={{ scale: 0.9, opacity: 0 }}
-							animate={{ scale: 1, opacity: 1 }}
-							transition={{ delay: 0.2 }}
-							className="flex-[1.5] bg-gradient-to-br from-indigo-600 to-violet-700 p-10 rounded-3xl shadow-xl text-center text-white relative overflow-hidden"
-						>
-							<div className="absolute inset-0 bg-white/10 opacity-20" />
-							<div className="relative z-10">
-								<div className="flex justify-center gap-6 mb-6">
-									<Cpu size={48} />
-									<Database size={48} />
-								</div>
-								<h3 className="text-3xl font-black mb-4">Core Engine</h3>
-								<div className="space-y-3 text-xl font-medium text-indigo-100">
-									<p>1. Groq Whisper (Fine-tuned)</p>
-									<p>2. Gemini Pro (Extraction)</p>
-								</div>
-							</div>
-						</motion.div>
-
-						<ArrowRight size={48} className="text-zinc-300" />
-
-						{/* Output */}
-						<motion.div
-							initial={{ x: 50, opacity: 0 }}
-							animate={{ x: 0, opacity: 1 }}
-							transition={{ delay: 0.4 }}
-							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
-						>
-							<div className="w-20 h-20 bg-emerald-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-emerald-600">
-								<CheckCircle2 size={40} />
-							</div>
-							<h3 className="text-2xl font-bold text-zinc-900">Structured Data</h3>
-							<p className="text-lg text-zinc-500 mt-2">DOCX • ICD-10 • Vitals</p>
-						</motion.div>
+						</div>
 					</div>
 
-					<div className="grid grid-cols-3 gap-12 w-full max-w-5xl">
-						{[
-							{ label: "Processing Time", value: "< 10s", desc: "Real-time" },
-							{ label: "Complexity", value: "O(n)", desc: "Linear scaling" },
-							{ label: "Medical Accuracy", value: "98%", desc: "Validated dataset" }
-						].map((stat, i) => (
-							<motion.div 
-								key={i} 
-								className="text-center"
-								initial={{ y: 20, opacity: 0 }}
-								animate={{ y: 0, opacity: 1 }}
-								transition={{ delay: 0.5 + i * 0.1 }}
-							>
-								<p className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-2">{stat.label}</p>
-								<p className="text-5xl font-black text-zinc-800">{stat.value}</p>
-								<p className="text-lg font-medium text-indigo-600 mt-1">{stat.desc}</p>
-							</motion.div>
-						))}
+					{/* Right: vs. Substitutes */}
+					<div className="bg-zinc-800 rounded-3xl p-8 text-white h-full flex flex-col">
+						<h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+							<Target size={28} className="text-amber-400" />
+							Why Not Alternatives?
+						</h3>
+						<div className="flex-1 flex flex-col justify-between gap-3">
+							{[
+								{ sub: "Dragon Medical", problem: "€150/mo, poor Romanian", us: "€12/mo, native Romanian" },
+								{ sub: "Hiring a Secretary", problem: "€400+/mo, sick days, turnover", us: "10x cheaper, always available" },
+								{ sub: "Generic Speech-to-Text", problem: "No HIPAA compliance, no medical context", us: "Full medical extraction" },
+								{ sub: "Manual Typing", problem: "3 hours every evening", us: "Done in real-time" }
+							].map((item, i) => (
+								<motion.div
+									key={i}
+									className="bg-white/10 rounded-xl py-3 px-5"
+									initial={{ x: 20, opacity: 0 }}
+									animate={{ x: 0, opacity: 1 }}
+									transition={{ delay: 0.2 + i * 0.1 }}
+								>
+									<span className="text-zinc-400 text-xl line-through">{item.sub}</span>
+									<div className="flex items-center gap-5 mt-2">
+										<ArrowRight size={20} className="text-rose-400 shrink-0" />
+										<span className="text-rose-300 text-lg">{item.problem}</span>
+									</div>
+									<div className="flex items-center gap-3 mt-2">
+										<CheckCircle2 size={20} className="text-emerald-400 shrink-0" />
+										<span className="text-emerald-400 text-lg font-semibold">{item.us}</span>
+									</div>
+								</motion.div>
+							))}
+						</div>
 					</div>
 				</div>
 			)
 		},
 
-		// SLIDE 6: Business Model + Financials Combined
+		// SLIDE 6: Business Model (Restored)
 		{
 			id: 'financials',
 			title: "BUSINESS MODEL & FINANCIALS",
@@ -534,86 +504,86 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 7: Closing / Roadmap
+		// SLIDE 7: AI Architecture (Old Slide 5)
 		{
-			id: 'closing',
-			title: "EXECUTION ROADMAP",
-			subtitle: "From MVP to Market Leader",
+			id: 'technology',
+			title: "AI ARCHITECTURE",
+			subtitle: "Fine-Tuned for Romanian Healthcare",
 			content: (
-				<div className="flex flex-col h-full gap-8">
-					{/* Timeline */}
-					<div className="relative flex-1">
-						<div className="absolute top-8 left-0 w-full h-1.5 bg-zinc-200 rounded-full" />
-						<div className="grid grid-cols-4 gap-6 relative h-full">
-							{[
-								{ phase: "Q1 2026", title: "Launch MVP", items: ["Free tier live", "Cardiology focus", "10 beta users"], status: "active" },
-								{ phase: "Q2 2026", title: "Product-Market Fit", items: ["100 paying users", "3 specialties", "Break-even"], status: "next" },
-								{ phase: "Q3-Q4 2026", title: "Scale", items: ["1,000 users", "Clinic tier", "Mobile app"], status: "future" },
-								{ phase: "2027", title: "Expansion", items: ["Balkan markets", "EMR integration", "Series A"], status: "future" }
-							].map((phase, i) => (
-								<motion.div
-									key={i}
-									initial={{ y: 20, opacity: 0 }}
-									animate={{ y: 0, opacity: 1 }}
-									transition={{ delay: i * 0.1 }}
-									className="text-center"
-								>
-									<div className={cn(
-										"w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center relative z-10 text-xl font-bold",
-										phase.status === "active" && "bg-gradient-to-br from-indigo-500 to-violet-600 text-white",
-										phase.status === "next" && "bg-indigo-100 text-indigo-600 border-2 border-indigo-300",
-										phase.status === "future" && "bg-zinc-100 text-zinc-400"
-									)}>
-										{i + 1}
-									</div>
-									<p className={cn(
-										"text-base font-bold uppercase tracking-wider mb-2",
-										phase.status === "active" ? "text-indigo-600" : "text-zinc-400"
-									)}>{phase.phase}</p>
-									<p className="text-xl font-bold text-zinc-800 mb-4">{phase.title}</p>
-									<ul className="space-y-2 text-lg text-zinc-500">
-										{phase.items.map((item, j) => (
-											<li key={j}>{item}</li>
-										))}
-									</ul>
-								</motion.div>
-							))}
-						</div>
+				<div className="flex flex-col items-center justify-center h-full space-y-12">
+					<div className="flex items-center gap-8 w-full px-8">
+						{/* Input */}
+						<motion.div
+							initial={{ x: -50, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
+						>
+							<div className="w-20 h-20 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-zinc-600">
+								<Mic size={40} />
+							</div>
+							<h3 className="text-2xl font-bold text-zinc-900">Raw Audio</h3>
+							<p className="text-lg text-zinc-500 mt-2">Romanian • Medical • Noisy</p>
+						</motion.div>
+
+						<ArrowRight size={48} className="text-zinc-300" />
+
+						{/* Processing */}
+						<motion.div
+							initial={{ scale: 0.9, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							transition={{ delay: 0.2 }}
+							className="flex-[1.5] bg-gradient-to-br from-indigo-600 to-violet-700 p-10 rounded-3xl shadow-xl text-center text-white relative overflow-hidden"
+						>
+							<div className="absolute inset-0 bg-white/10 opacity-20" />
+							<div className="relative z-10">
+								<div className="flex justify-center gap-6 mb-6">
+									<Cpu size={48} />
+									<Database size={48} />
+								</div>
+								<h3 className="text-3xl font-black mb-4">Core Engine</h3>
+								<div className="space-y-3 text-xl font-medium text-indigo-100">
+									<p>1. Groq Whisper (Fine-tuned)</p>
+									<p>2. Gemini Pro (Extraction)</p>
+								</div>
+							</div>
+						</motion.div>
+
+						<ArrowRight size={48} className="text-zinc-300" />
+
+						{/* Output */}
+						<motion.div
+							initial={{ x: 50, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							transition={{ delay: 0.4 }}
+							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
+						>
+							<div className="w-20 h-20 bg-emerald-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-emerald-600">
+								<CheckCircle2 size={40} />
+							</div>
+							<h3 className="text-2xl font-bold text-zinc-900">Structured Data</h3>
+							<p className="text-lg text-zinc-500 mt-2">DOCX • ICD-10 • Vitals</p>
+						</motion.div>
 					</div>
 
-					{/* Key Metrics Summary */}
-					<div className="grid grid-cols-5 gap-5">
+					<div className="grid grid-cols-3 gap-12 w-full max-w-5xl">
 						{[
-							{ label: "TAM", value: "€187M", icon: PieChart },
-							{ label: "Break-even", value: "70 users", icon: Target },
-							{ label: "LTV:CAC", value: "7.2x", icon: TrendingUp },
-							{ label: "Y3 ARR", value: "€1.34M", icon: BarChart3 },
-							{ label: "Y3 Margin", value: "69%", icon: DollarSign }
+							{ label: "Processing Time", value: "< 10s", desc: "Real-time" },
+							{ label: "Complexity", value: "O(n)", desc: "Linear scaling" },
+							{ label: "Medical Accuracy", value: "98%", desc: "Validated dataset" }
 						].map((stat, i) => (
 							<motion.div
 								key={i}
-								className="bg-zinc-800 rounded-2xl p-5 text-white text-center"
+								className="text-center"
 								initial={{ y: 20, opacity: 0 }}
 								animate={{ y: 0, opacity: 1 }}
-								transition={{ delay: 0.3 + i * 0.05 }}
+								transition={{ delay: 0.5 + i * 0.1 }}
 							>
-								<stat.icon size={24} className="mx-auto mb-3 text-indigo-400" />
-								<p className="text-sm text-zinc-400 uppercase tracking-wider font-semibold">{stat.label}</p>
-								<p className="text-2xl font-black mt-2">{stat.value}</p>
+								<p className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-2">{stat.label}</p>
+								<p className="text-5xl font-black text-zinc-800">{stat.value}</p>
+								<p className="text-lg font-medium text-indigo-600 mt-1">{stat.desc}</p>
 							</motion.div>
 						))}
 					</div>
-
-					{/* Closing Quote */}
-					<motion.div
-						initial={{ y: 20, opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						transition={{ delay: 0.6 }}
-						className="bg-gradient-to-r from-indigo-500 to-violet-600 rounded-2xl p-8 text-white text-center"
-					>
-						<p className="text-2xl italic font-medium">"Yesterday, I made it home for dinner. My daughter asked why I was early. I told her: I had some help."</p>
-						<p className="text-lg opacity-80 mt-3">— Dr. Popescu</p>
-					</motion.div>
 				</div>
 			)
 		}
