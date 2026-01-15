@@ -97,18 +97,18 @@ const Presentation = () => {
 					>
 						<div className="space-y-6">
 							<p className="text-5xl font-medium text-zinc-800 leading-tight">
-								Romanian doctors spend <span className="text-rose-500 font-bold">2.1 hours per day</span> on <b>paperwork</b>.
+								Romanian doctors spend <span className="text-rose-500 font-bold">2.1 hours per day</span> on <span className='font-extrabold'>paperwork</span>.
 							</p>
 						</div>
 
 						<motion.div
 							initial={{ scale: 0.9, opacity: 0 }}
 							animate={{ scale: 1, opacity: 1 }}
-							transition={{ delay: 1.5, duration: 0.4 }}
+							transition={{ delay: 1.5, duration: 0.5, type: "spring" }}
 							className="bg-zinc-900 text-white py-8 px-12 rounded-3xl inline-block shadow-xl"
 						>
 							<p className="text-6xl font-black tracking-tight">
-								That's 750+ hours a year.
+								That's 700+ hours a year.
 							</p>
 						</motion.div>
 
