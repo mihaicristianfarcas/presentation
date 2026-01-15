@@ -350,7 +350,91 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 5: Business Model + Financials Combined
+		// SLIDE 5: AI Architecture
+		{
+			id: 'technology',
+			title: "AI ARCHITECTURE",
+			subtitle: "Fine-Tuned for Romanian Healthcare",
+			content: (
+				<div className="flex flex-col items-center justify-center h-full space-y-12">
+					<div className="flex items-center gap-8 w-full px-8">
+						{/* Input */}
+						<motion.div
+							initial={{ x: -50, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
+						>
+							<div className="w-20 h-20 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-zinc-600">
+								<Mic size={40} />
+							</div>
+							<h3 className="text-2xl font-bold text-zinc-900">Raw Audio</h3>
+							<p className="text-lg text-zinc-500 mt-2">Romanian • Medical • Noisy</p>
+						</motion.div>
+
+						<ArrowRight size={48} className="text-zinc-300" />
+
+						{/* Processing */}
+						<motion.div
+							initial={{ scale: 0.9, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							transition={{ delay: 0.2 }}
+							className="flex-[1.5] bg-gradient-to-br from-indigo-600 to-violet-700 p-10 rounded-3xl shadow-xl text-center text-white relative overflow-hidden"
+						>
+							<div className="absolute inset-0 bg-white/10 opacity-20" />
+							<div className="relative z-10">
+								<div className="flex justify-center gap-6 mb-6">
+									<Cpu size={48} />
+									<Database size={48} />
+								</div>
+								<h3 className="text-3xl font-black mb-4">Core Engine</h3>
+								<div className="space-y-3 text-xl font-medium text-indigo-100">
+									<p>1. Groq Whisper (Fine-tuned)</p>
+									<p>2. Gemini Pro (Extraction)</p>
+								</div>
+							</div>
+						</motion.div>
+
+						<ArrowRight size={48} className="text-zinc-300" />
+
+						{/* Output */}
+						<motion.div
+							initial={{ x: 50, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							transition={{ delay: 0.4 }}
+							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
+						>
+							<div className="w-20 h-20 bg-emerald-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-emerald-600">
+								<CheckCircle2 size={40} />
+							</div>
+							<h3 className="text-2xl font-bold text-zinc-900">Structured Data</h3>
+							<p className="text-lg text-zinc-500 mt-2">DOCX • ICD-10 • Vitals</p>
+						</motion.div>
+					</div>
+
+					<div className="grid grid-cols-3 gap-12 w-full max-w-5xl">
+						{[
+							{ label: "Processing Time", value: "< 10s", desc: "Real-time" },
+							{ label: "Complexity", value: "O(n)", desc: "Linear scaling" },
+							{ label: "Medical Accuracy", value: "98%", desc: "Validated dataset" }
+						].map((stat, i) => (
+							<motion.div 
+								key={i} 
+								className="text-center"
+								initial={{ y: 20, opacity: 0 }}
+								animate={{ y: 0, opacity: 1 }}
+								transition={{ delay: 0.5 + i * 0.1 }}
+							>
+								<p className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-2">{stat.label}</p>
+								<p className="text-5xl font-black text-zinc-800">{stat.value}</p>
+								<p className="text-lg font-medium text-indigo-600 mt-1">{stat.desc}</p>
+							</motion.div>
+						))}
+					</div>
+				</div>
+			)
+		},
+
+		// SLIDE 6: Business Model + Financials Combined
 		{
 			id: 'financials',
 			title: "BUSINESS MODEL & FINANCIALS",
@@ -450,7 +534,7 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 6: Closing / Roadmap
+		// SLIDE 7: Closing / Roadmap
 		{
 			id: 'closing',
 			title: "EXECUTION ROADMAP",
