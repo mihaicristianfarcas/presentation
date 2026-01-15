@@ -1032,7 +1032,7 @@ const Presentation = () => {
 								animate={{ opacity: 1, y: 0 }}
 								className="mb-8 shrink-0"
 							>
-								<h2 className="text-sm font-bold uppercase tracking-[0.3em] text-indigo-500 mb-3">
+								<h2 className="text-md font-bold uppercase tracking-[0.3em] text-indigo-500 mb-3">
 									{slides[currentSlide].title}
 								</h2>
 								<p className="text-5xl font-bold text-zinc-800 tracking-tight">
