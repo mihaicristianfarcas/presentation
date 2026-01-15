@@ -643,108 +643,93 @@ const Presentation = () => {
 			title: "THE AI PIPELINE",
 			subtitle: "End-to-End Architecture for Medical Documentation",
 			content: (
-				<div className="flex flex-col h-full">
+				<div className="flex flex-col h-full items-center justify-center gap-12">
 					{/* Main Pipeline - Horizontal Flow */}
-					<div className="flex-1 flex items-center justify-center" >
-						<div className="flex items-center gap-6 w-full max-w-7xl px-4">
+					<div className="w-full max-w-[90rem] flex items-center justify-center px-4">
+						<div className="flex items-center gap-10">
 
 							{/* 1. Input: Raw Audio */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
-								className="w-28 shrink-0 flex flex-col items-center text-center"
+								className="shrink-0 flex flex-col items-center text-center gap-4"
 							>
-								<div className="w-16 h-16 bg-zinc-100 rounded-2xl flex items-center justify-center text-zinc-500 mb-2 shadow-sm">
-									<Mic size={28} />
+								<div className="w-28 h-28 bg-zinc-100 rounded-3xl flex items-center justify-center text-zinc-500 shadow-sm">
+									<Mic size={48} strokeWidth={1.5} />
 								</div>
-								<span className="text-sm font-bold text-zinc-700">Audio</span>
+								<span className="text-2xl font-bold text-zinc-700">Audio</span>
 							</motion.div>
 
-							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
+							<ArrowRight size={40} className="text-zinc-300 shrink-0" />
 
 							{/* 2. Preprocessing */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.1 }}
-								className="w-44 h-40 shrink-0 bg-zinc-50 border border-zinc-200 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
+								className="w-64 h-64 shrink-0 bg-zinc-50 border-2 border-zinc-200 rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-sm gap-2"
 							>
-								<div className="text-xs font-bold text-zinc-600 uppercase tracking-wide mb-1">Preprocess</div>
-								<div className="text-[11px] text-zinc-500 font-medium">
-									Mel-Spectrogram
+								<div className="text-sm font-black text-zinc-400 uppercase tracking-widest mb-1">Preprocess</div>
+								<div className="text-xl text-zinc-600 font-bold leading-tight">
+									Mel-Spectrogram Transformation
 								</div>
 							</motion.div>
 
-							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
+							<ArrowRight size={40} className="text-zinc-300 shrink-0" />
 
 							{/* 3. ASR: Whisper */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.2 }}
-								className="w-44 h-40 shrink-0 bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200 rounded-2xl p-5 relative flex flex-col items-center justify-center shadow-md"
+								className="w-72 h-72 shrink-0 bg-gradient-to-br from-indigo-50 to-indigo-100 border-2 border-indigo-200 rounded-[2rem] p-8 relative flex flex-col items-center justify-center shadow-lg"
 							>
-								<div className="absolute -top-3 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">ASR</div>
-								<div className="flex flex-col items-center text-center gap-2 mt-1">
-									<div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white shadow-sm">
-										<Zap size={20} />
+								<div className="absolute -top-5 bg-indigo-600 text-white text-sm font-black px-5 py-2 rounded-full shadow-md tracking-wider">ASR MODEL</div>
+								<div className="flex flex-col items-center text-center gap-5 mt-2">
+									<div className="w-20 h-20 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-md">
+										<Zap size={40} />
 									</div>
 									<div>
-										<h4 className="font-bold text-indigo-900">Whisper Small</h4>
-										<p className="text-xs text-indigo-600 font-medium mt-0.5">Fine-Tuned</p>
+										<h4 className="text-3xl font-black text-indigo-900 mb-1">Whisper</h4>
+										<p className="text-lg text-indigo-700 font-bold">Small • Fine-Tuned</p>
 									</div>
 								</div>
 							</motion.div>
 
-							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
-
-							{/* 4. Refiner: Gemini 2.5
-							<motion.div
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ delay: 0.3 }}
-								className="w-44 h-40 shrink-0 bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white rounded-2xl p-5 flex flex-col items-center justify-center text-center shadow-lg"
-							>
-								<div className="text-[10px] font-bold uppercase tracking-wide opacity-80 mb-2">Refiner</div>
-								<Shield size={24} className="mx-auto mb-2" />
-								<h4 className="font-bold">Gemini 2.5</h4>
-								<p className="text-[10px] opacity-90 mt-1">"Contextual Healing"</p>
-							</motion.div>
-
-							<ArrowRight size={24} className="text-zinc-300 shrink-0" /> */}
+							<ArrowRight size={40} className="text-zinc-300 shrink-0" />
 
 							{/* 5. Extraction: Llama 3.1 */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.4 }}
-								className="w-44 h-40 shrink-0 bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 rounded-2xl p-5 relative flex flex-col items-center justify-center shadow-md"
+								className="w-72 h-72 shrink-0 bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-200 rounded-[2rem] p-8 relative flex flex-col items-center justify-center shadow-lg"
 							>
-								<div className="absolute -top-3 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">EXTRACTION</div>
-								<div className="flex flex-col items-center text-center gap-2 mt-1">
-									<div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-sm">
-										<Database size={20} />
+								<div className="absolute -top-5 bg-emerald-600 text-white text-sm font-black px-5 py-2 rounded-full shadow-md tracking-wider">EXTRACTION</div>
+								<div className="flex flex-col items-center text-center gap-5 mt-2">
+									<div className="w-20 h-20 bg-emerald-600 rounded-2xl flex items-center justify-center text-white shadow-md">
+										<Database size={40} />
 									</div>
 									<div>
-										<h4 className="font-bold text-emerald-900">Llama 3.1 8B</h4>
-										<p className="text-xs text-emerald-600 font-medium mt-0.5">Local JSON</p>
+										<h4 className="text-3xl font-black text-emerald-900 mb-1">Llama 3.1</h4>
+										<p className="text-lg text-emerald-700 font-bold">8B • Local JSON</p>
 									</div>
 								</div>
 							</motion.div>
 
-							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
+							<ArrowRight size={40} className="text-zinc-300 shrink-0" />
 
 							{/* 6. Output: DOCX */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.5 }}
-								className="w-28 shrink-0 flex flex-col items-center text-center"
+								className="shrink-0 flex flex-col items-center text-center gap-4"
 							>
-								<div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 mb-2 shadow-sm">
-									<FileText size={28} />
+								<div className="w-28 h-28 bg-emerald-50 rounded-3xl flex items-center justify-center text-emerald-600 mb-2 shadow-sm border-2 border-emerald-100">
+									<FileText size={48} strokeWidth={1.5} />
 								</div>
-								<span className="text-sm font-bold text-zinc-700">DOCX</span>
+								<span className="text-2xl font-bold text-zinc-700">DOCX</span>
 							</motion.div>
 						</div>
 					</div >
@@ -754,21 +739,21 @@ const Presentation = () => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ delay: 0.6 }}
-						className="flex justify-center gap-12 py-8"
+						className="flex justify-center gap-24 py-4"
 					>
 						{
 							[
 								{ label: "Latency", val: "2.3s/min", icon: Clock },
-								{ label: "GPU", val: "A100", icon: Cpu },
-								{ label: "Privacy", val: "Local", icon: Shield }
+								{ label: "Hardware", val: "NVIDIA A100", icon: Cpu },
+								{ label: "Privacy", val: "100% Local", icon: Shield }
 							].map((stat, i) => (
-								<div key={i} className="flex items-center gap-3">
-									<div className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400">
-										<stat.icon size={16} />
+								<div key={i} className="flex items-center gap-5 bg-white px-8 py-4 rounded-2xl shadow-sm border border-zinc-100">
+									<div className="w-14 h-14 rounded-full bg-zinc-50 flex items-center justify-center text-zinc-400">
+										<stat.icon size={28} />
 									</div>
-									<div>
-										<div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">{stat.label}</div>
-										<div className="text-lg font-bold text-zinc-700">{stat.val}</div>
+									<div className="text-left">
+										<div className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-1">{stat.label}</div>
+										<div className="text-2xl font-black text-zinc-800">{stat.val}</div>
 									</div>
 								</div>
 							))
@@ -785,23 +770,23 @@ const Presentation = () => {
 			title: "EXPERIMENTAL VALIDATION",
 			subtitle: "Rigorous Training & Comparative Analysis",
 			content: (
-				<div className="grid grid-cols-2 gap-6 h-full">
+				<div className="grid grid-cols-2 gap-6 h-full pb-4">
 					{/* Q1: ASR Training Curve - All 5 Checkpoints */}
-					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+					<div className="bg-white rounded-3xl border border-zinc-100 p-6 shadow-sm flex flex-col">
 						<div className="flex items-center justify-between mb-4">
 							<div className="flex items-center gap-3">
-								<div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600">
-									<TrendingUp size={20} />
+								<div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600">
+									<TrendingUp size={24} />
 								</div>
 								<div>
-									<h3 className="text-lg font-bold text-zinc-800">ASR Training Curve</h3>
-									<p className="text-xs text-zinc-500">WER % across checkpoints (~4 days training)</p>
+									<h3 className="text-xl font-bold text-zinc-800">ASR Training Curve</h3>
+									<p className="text-xs text-zinc-500 font-medium">WER % across checkpoints</p>
 								</div>
 							</div>
-							<span className="px-2 py-1 bg-rose-100 text-rose-600 text-[10px] font-bold rounded">Overfitting at 3K</span>
+							<span className="px-3 py-1 bg-rose-100 text-rose-600 text-xs font-bold rounded-lg">Overfitting at 3K</span>
 						</div>
 
-						<div className="flex-1 flex items-end gap-3 pt-6 pb-2">
+						<div className="flex-1 flex items-end gap-4 pt-4 pb-2">
 							{[
 								{ step: "0", wer: 35.2, col: "bg-zinc-300", best: false },
 								{ step: "500", wer: 26.8, col: "bg-indigo-300", best: false },
@@ -814,49 +799,49 @@ const Presentation = () => {
 									initial={{ height: 0 }}
 									animate={{ height: `${(cp.wer / 40) * 100}%` }}
 									transition={{ delay: 0.1 + i * 0.08, duration: 0.4 }}
-									className={`flex-1 ${cp.col} rounded-t-lg relative ${cp.best ? 'ring-2 ring-violet-500 ring-offset-2' : ''}`}
+									className={`flex-1 ${cp.col} rounded-t-xl relative ${cp.best ? 'ring-2 ring-violet-500 ring-offset-2' : ''}`}
 								>
-									<div className={`absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-black ${cp.best ? 'text-violet-600' : 'text-zinc-600'}`}>{cp.wer}%</div>
-									<div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-zinc-500">{cp.step}</div>
+									<div className={`absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-black ${cp.best ? 'text-violet-600' : 'text-zinc-600'}`}>{cp.wer}%</div>
+									<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold text-zinc-500">{cp.step}</div>
 								</motion.div>
 							))}
 						</div>
-						<div className="text-center text-[10px] text-zinc-400 mt-6">Training Steps</div>
+						<div className="text-center text-xs font-bold text-zinc-400 mt-6 uppercase tracking-widest">Training Steps</div>
 					</div>
 
 					{/* Q2: LLM Comparison - Precision vs Recall */}
-					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+					<div className="bg-white rounded-3xl border border-zinc-100 p-6 shadow-sm flex flex-col">
 						<div className="flex items-center gap-3 mb-4">
-							<div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600">
-								<Target size={20} />
+							<div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600">
+								<Target size={24} />
 							</div>
 							<div>
-								<h3 className="text-lg font-bold text-zinc-800">LLM Extraction</h3>
-								<p className="text-xs text-zinc-500">Llama 3.1 8B vs Gemini 2.0 Flash</p>
+								<h3 className="text-xl font-bold text-zinc-800">LLM Extraction</h3>
+								<p className="text-xs text-zinc-500 font-medium">Llama 3.1 8B vs Gemini 2.0 Flash</p>
 							</div>
 						</div>
 
-						<div className="flex-1 flex flex-col justify-center space-y-4">
+						<div className="flex-1 flex flex-col justify-center space-y-5">
 							{/* Precision */}
 							<div>
-								<div className="flex justify-between text-xs font-bold mb-1">
+								<div className="flex justify-between text-sm font-bold mb-1">
 									<span className="text-zinc-600">Precision (No Hallucinations)</span>
 									<span className="text-emerald-600">Llama wins ✓</span>
 								</div>
-								<div className="space-y-1">
-									<div className="flex items-center gap-2">
-										<span className="text-[10px] w-12 text-right font-medium text-emerald-700">Llama</span>
-										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+								<div className="space-y-2">
+									<div className="flex items-center gap-3">
+										<span className="text-xs w-12 text-right font-bold text-emerald-700">Llama</span>
+										<div className="flex-1 h-6 bg-zinc-100 rounded-full overflow-hidden">
 											<motion.div initial={{ width: 0 }} animate={{ width: "87.9%" }} transition={{ delay: 0.3, duration: 0.6 }} className="h-full bg-emerald-500 rounded-full flex items-center justify-end pr-2">
-												<span className="text-[10px] font-bold text-white">87.9%</span>
+												<span className="text-xs font-black text-white">87.9%</span>
 											</motion.div>
 										</div>
 									</div>
-									<div className="flex items-center gap-2">
-										<span className="text-[10px] w-12 text-right font-medium text-zinc-500">Gemini</span>
-										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+									<div className="flex items-center gap-3">
+										<span className="text-xs w-12 text-right font-bold text-zinc-500">Gemini</span>
+										<div className="flex-1 h-6 bg-zinc-100 rounded-full overflow-hidden">
 											<motion.div initial={{ width: 0 }} animate={{ width: "85.8%" }} transition={{ delay: 0.4, duration: 0.6 }} className="h-full bg-zinc-400 rounded-full flex items-center justify-end pr-2">
-												<span className="text-[10px] font-bold text-white">85.8%</span>
+												<span className="text-xs font-black text-white">85.8%</span>
 											</motion.div>
 										</div>
 									</div>
@@ -864,81 +849,81 @@ const Presentation = () => {
 							</div>
 							{/* Recall */}
 							<div>
-								<div className="flex justify-between text-xs font-bold mb-1">
+								<div className="flex justify-between text-sm font-bold mb-1">
 									<span className="text-zinc-600">Recall (Coverage)</span>
 									<span className="text-zinc-400">Gemini leads</span>
 								</div>
-								<div className="space-y-1">
-									<div className="flex items-center gap-2">
-										<span className="text-[10px] w-12 text-right font-medium text-indigo-700">Llama</span>
-										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+								<div className="space-y-2">
+									<div className="flex items-center gap-3">
+										<span className="text-xs w-12 text-right font-bold text-indigo-700">Llama</span>
+										<div className="flex-1 h-6 bg-zinc-100 rounded-full overflow-hidden">
 											<motion.div initial={{ width: 0 }} animate={{ width: "93.6%" }} transition={{ delay: 0.5, duration: 0.6 }} className="h-full bg-indigo-500 rounded-full flex items-center justify-end pr-2">
-												<span className="text-[10px] font-bold text-white">93.6%</span>
+												<span className="text-xs font-black text-white">93.6%</span>
 											</motion.div>
 										</div>
 									</div>
-									<div className="flex items-center gap-2">
-										<span className="text-[10px] w-12 text-right font-medium text-zinc-500">Gemini</span>
-										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+									<div className="flex items-center gap-3">
+										<span className="text-xs w-12 text-right font-bold text-zinc-500">Gemini</span>
+										<div className="flex-1 h-6 bg-zinc-100 rounded-full overflow-hidden">
 											<motion.div initial={{ width: 0 }} animate={{ width: "96.4%" }} transition={{ delay: 0.6, duration: 0.6 }} className="h-full bg-zinc-400 rounded-full flex items-center justify-end pr-2">
-												<span className="text-[10px] font-bold text-white">96.4%</span>
+												<span className="text-xs font-black text-white">96.4%</span>
 											</motion.div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<p className="text-sm text-center text-emerald-600 font-medium mt-2">"In medicine, hallucinating a value is worse than missing one."</p>
+						<p className="text-sm text-center text-emerald-600 font-bold mt-4 italic">"In medicine, hallucinating a value is worse than missing one."</p>
 					</div>
 
 					{/* Q3: Training Stats */}
-					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm">
-						<h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wide mb-4">Training Effort</h3>
+					<div className="bg-white rounded-3xl border border-zinc-100 p-6 shadow-sm">
+						<h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-4">Training Effort</h3>
 						<div className="grid grid-cols-2 gap-4 h-[calc(100%-2rem)]">
 							{/* Whisper */}
-							<div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4 flex flex-col justify-center">
-								<div className="text-indigo-500 font-bold text-xs uppercase mb-2">Whisper ASR</div>
-								<div className="text-3xl font-black text-indigo-700">~4 days</div>
-								<div className="text-xs text-indigo-600 mt-1">27K samples • 3K steps</div>
+							<div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-4 flex flex-col justify-center gap-1">
+								<div className="text-indigo-500 font-bold text-xs uppercase tracking-wider mb-1">Whisper ASR</div>
+								<div className="text-4xl font-black text-indigo-700">~4 days</div>
+								<div className="text-sm text-indigo-600 font-medium">27K samples • 3K steps</div>
 							</div>
 							{/* Llama */}
-							<div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 flex flex-col justify-center">
-								<div className="text-emerald-500 font-bold text-xs uppercase mb-2">Llama LLM</div>
-								<div className="text-3xl font-black text-emerald-700">{"< 4 hrs"}</div>
-								<div className="text-xs text-emerald-600 mt-1">200K samples • 2K steps</div>
+							<div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-4 flex flex-col justify-center gap-1">
+								<div className="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-1">Llama LLM</div>
+								<div className="text-4xl font-black text-emerald-700">{"< 4 hrs"}</div>
+								<div className="text-sm text-emerald-600 font-medium">200K samples • 2K steps</div>
 							</div>
 						</div>
 					</div>
 
 					{/* Q4: Error Reduction Funnel */}
-					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
-						<h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wide mb-4">WER Reduction Pipeline</h3>
+					<div className="bg-white rounded-3xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+						<h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-4">WER Reduction Pipeline</h3>
 						<div className="flex-1 flex items-center justify-center">
-							<div className="flex items-center gap-2">
+							<div className="flex items-center gap-4">
 								{/* Start */}
-								<div className="text-center">
-									<div className="w-16 h-16 bg-zinc-200 rounded-xl flex items-center justify-center">
-										<span className="text-xl font-black text-zinc-600">35.2</span>
+								<div className="text-center gap-1 flex flex-col items-center">
+									<div className="w-20 h-20 bg-zinc-100 rounded-2xl flex items-center justify-center">
+										<span className="text-2xl font-black text-zinc-600">35.2</span>
 									</div>
-									<span className="text-[10px] text-zinc-500 font-medium">Baseline</span>
+									<span className="text-xs text-zinc-500 font-bold uppercase">Baseline</span>
 								</div>
-								<div className="text-zinc-300"><ArrowRight size={16} /></div>
+								<div className="text-zinc-300"><ArrowRight size={24} /></div>
 								{/* After Fine-tune */}
-								<div className="text-center">
-									<div className="w-16 h-16 bg-indigo-100 rounded-xl flex flex-col items-center justify-center">
-										<span className="text-xl font-black text-indigo-600">24.1</span>
-										<span className="text-[9px] text-indigo-500 font-bold">-31.5%</span>
+								<div className="text-center gap-1 flex flex-col items-center">
+									<div className="w-20 h-20 bg-indigo-100 rounded-2xl flex flex-col items-center justify-center">
+										<span className="text-2xl font-black text-indigo-600">24.1</span>
+										<span className="text-[10px] text-indigo-500 font-black mt-0.5">-31.5%</span>
 									</div>
-									<span className="text-[10px] text-indigo-600 font-medium">Fine-Tuned</span>
+									<span className="text-xs text-indigo-600 font-bold uppercase">Fine-Tuned</span>
 								</div>
-								<div className="text-zinc-300"><ArrowRight size={16} /></div>
+								<div className="text-zinc-300"><ArrowRight size={24} /></div>
 								{/* After Gemini */}
-								<div className="text-center">
-									<div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-xl flex flex-col items-center justify-center shadow-lg">
-										<span className="text-2xl font-black text-white">22.6</span>
-										<span className="text-[9px] text-white/80 font-bold">-35.8%</span>
+								<div className="text-center gap-1 flex flex-col items-center">
+									<div className="w-24 h-24 bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-2xl flex flex-col items-center justify-center shadow-lg transform scale-110">
+										<span className="text-3xl font-black text-white">22.6</span>
+										<span className="text-xs text-white/90 font-black mt-0.5">-35.8%</span>
 									</div>
-									<span className="text-[10px] text-violet-600 font-bold">+ LLama</span>
+									<span className="text-sm text-violet-600 font-black uppercase mt-2">+ LLama</span>
 								</div>
 							</div>
 						</div>
