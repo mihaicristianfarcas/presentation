@@ -328,204 +328,261 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 5: Value Proposition (Restored)
+		// SLIDE 5: Value Proposition (Clean 2-Column)
 		{
 			id: 'value-prop',
 			title: "VALUE PROPOSITION",
-			subtitle: "Focus on what matters",
+			subtitle: "Why Doctors Choose MaxOnScribe",
 			content: (
-				<div className="grid grid-cols-2 gap-10 h-full">
-					{/* Left: Key Benefits */}
-					<div className="flex flex-col h-full gap-6">
-						<div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-sm flex-1 flex flex-col">
-							<h3 className="text-2xl font-bold text-zinc-800 mb-8 flex items-center gap-5">
-								<Zap className="text-amber-500" size={28} />
-								What Doctors Get
-							</h3>
-							<div className="flex-1 flex flex-col justify-center gap-18">
+				<div className="flex flex-col h-full gap-8">
+					{/* Hero Statement */}
+					<motion.div
+						initial={{ y: -20, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						className="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-8 text-white text-center"
+					>
+						<p className="text-3xl font-bold">
+							"Speak naturally. Get perfect documentation. Go home on time."
+						</p>
+					</motion.div>
+
+					{/* Main Content - 2 Columns */}
+					<div className="grid grid-cols-2 gap-10 flex-1">
+						{/* Column 1: Functional Benefits */}
+						<div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-sm flex flex-col">
+							<div className="flex items-center gap-4 mb-8">
+								<div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center">
+									<Zap size={28} className="text-emerald-600" />
+								</div>
+								<h3 className="text-2xl font-bold text-zinc-800">What You Get</h3>
+							</div>
+							<div className="space-y-6 flex-1 flex flex-col justify-center">
 								{[
-									{ benefit: "70% Time Reduction", detail: "From 45min to 12min per patient" },
-									{ benefit: "Automatic ICD-10 Codes", detail: "No manual lookups needed" },
-									{ benefit: "Professional DOCX Export", detail: "Print-ready, legally compliant" },
-									{ benefit: "98% Medical Accuracy", detail: "Romanian terminology fine-tuned" }
+									{ metric: "70%", label: "Time Saved", detail: "45min → 12min per patient" },
+									{ metric: "98%", label: "Accuracy", detail: "Romanian medical terminology" },
+									{ metric: "<10s", label: "Processing", detail: "Real-time transcription" }
 								].map((item, i) => (
 									<motion.div
 										key={i}
-										className="flex items-start gap-2"
 										initial={{ x: -20, opacity: 0 }}
 										animate={{ x: 0, opacity: 1 }}
 										transition={{ delay: i * 0.1 }}
+										className="flex items-center gap-6 p-5 bg-zinc-50 rounded-xl"
 									>
-										<CheckCircle2 className="text-emerald-500 shrink-0 mt-1" size={28} />
+										<span className="text-4xl font-black text-indigo-600 w-24">{item.metric}</span>
 										<div>
-											<p className="font-bold text-2xl text-zinc-800">{item.benefit}</p>
-											<p className="text-xl text-zinc-500 mt-1">{item.detail}</p>
+											<p className="font-bold text-xl text-zinc-800">{item.label}</p>
+											<p className="text-lg text-zinc-500">{item.detail}</p>
+										</div>
+									</motion.div>
+								))}
+							</div>
+						</div>
+
+						{/* Column 2: Emotional Benefits - Addressing Fears */}
+						<div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-sm flex flex-col">
+							<div className="flex items-center gap-4 mb-8">
+								<div className="w-14 h-14 bg-rose-100 rounded-xl flex items-center justify-center">
+									<HeartPulse size={28} className="text-rose-600" />
+								</div>
+								<h3 className="text-2xl font-bold text-zinc-800">What You Feel</h3>
+							</div>
+							<div className="space-y-6 flex-1 flex flex-col justify-center">
+								{[
+									{ fear: "Missing family dinners", relief: "Leave clinic on time" },
+									{ fear: "Burnout & exhaustion", relief: "Focus on patients, not typing" },
+									{ fear: "Incomplete records risk", relief: "99% documentation completeness" }
+								].map((item, i) => (
+									<motion.div
+										key={i}
+										initial={{ x: 20, opacity: 0 }}
+										animate={{ x: 0, opacity: 1 }}
+										transition={{ delay: 0.2 + i * 0.1 }}
+										className="p-5 rounded-xl border border-zinc-100 bg-zinc-50"
+									>
+										<div className="flex items-center gap-2 text-rose-400 mb-2">
+											<AlertCircle size={18} />
+											<span className="line-through text-lg">{item.fear}</span>
+										</div>
+										<div className="flex items-center gap-2 text-emerald-600 font-semibold text-xl">
+											<CheckCircle2 size={22} />
+											<span>{item.relief}</span>
 										</div>
 									</motion.div>
 								))}
 							</div>
 						</div>
 					</div>
-
-					{/* Right: vs. Substitutes */}
-					<div className="bg-zinc-800 rounded-3xl p-8 text-white h-full flex flex-col">
-						<h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-							<Target size={28} className="text-amber-400" />
-							Why Not Alternatives?
-						</h3>
-						<div className="flex-1 flex flex-col justify-between gap-3">
-							{[
-								{ sub: "Dragon Medical", problem: "€150/mo, poor Romanian", us: "€12/mo, native Romanian" },
-								{ sub: "Hiring a Secretary", problem: "€400+/mo, sick days, turnover", us: "10x cheaper, always available" },
-								{ sub: "Generic Speech-to-Text", problem: "No HIPAA compliance, no medical context", us: "Full medical extraction" },
-								{ sub: "Manual Typing", problem: "3 hours every evening", us: "Done in real-time" }
-							].map((item, i) => (
-								<motion.div
-									key={i}
-									className="bg-white/10 rounded-xl py-3 px-5"
-									initial={{ x: 20, opacity: 0 }}
-									animate={{ x: 0, opacity: 1 }}
-									transition={{ delay: 0.2 + i * 0.1 }}
-								>
-									<span className="text-zinc-400 text-xl line-through">{item.sub}</span>
-									<div className="flex items-center gap-5 mt-2">
-										<ArrowRight size={20} className="text-rose-400 shrink-0" />
-										<span className="text-rose-300 text-lg">{item.problem}</span>
-									</div>
-									<div className="flex items-center gap-3 mt-2">
-										<CheckCircle2 size={20} className="text-emerald-400 shrink-0" />
-										<span className="text-emerald-400 text-lg font-semibold">{item.us}</span>
-									</div>
-								</motion.div>
-							))}
-						</div>
-					</div>
 				</div>
 			)
 		},
 
-		// SLIDE 6: Business Model (Restored)
+		// SLIDE 6: Business Model (Simplified with Growth Chart)
 		{
 			id: 'financials',
 			title: "BUSINESS MODEL & FINANCIALS",
-			subtitle: "Path to €1.34M ARR",
+			subtitle: "Path to Profitability",
 			content: (
 				<div className="grid grid-cols-2 gap-8 h-full">
-					{/* Left Column */}
-					<div className="flex flex-col gap-6 h-full">
-						{/* Pricing */}
+					{/* Left: Pricing + Costs */}
+					<div className="flex flex-col gap-6">
+						{/* Pricing Tiers - Horizontal */}
 						<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm">
-							<h3 className="text-xl font-bold text-zinc-700 uppercase tracking-wider mb-5">Revenue Model</h3>
-							<div className="space-y-4">
-								<div className="flex items-center justify-between p-4 bg-zinc-50 rounded-xl">
-									<div className="flex items-center gap-4">
-										<span className="px-3 py-1.5 bg-zinc-300 rounded text-sm font-bold">FREE</span>
-										<span className="text-xl text-zinc-700">5 docs/month</span>
-									</div>
-									<span className="text-lg text-zinc-500">Lead gen</span>
+							<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-5">Pricing</h3>
+							<div className="grid grid-cols-3 gap-4">
+								<div className="text-center p-4 bg-zinc-50 rounded-xl">
+									<span className="px-3 py-1 bg-zinc-300 rounded text-xs font-bold">FREE</span>
+									<p className="text-2xl font-black text-zinc-800 mt-3">€0</p>
+									<p className="text-sm text-zinc-500 mt-1">5 docs/mo</p>
 								</div>
-								<div className="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-2 border-indigo-200">
-									<div className="flex items-center gap-4">
-										<span className="px-3 py-1.5 bg-indigo-500 text-white rounded text-sm font-bold">PRO</span>
-										<span className="text-xl text-zinc-800 font-bold">€12/month</span>
-									</div>
-									<span className="text-lg text-indigo-600 font-semibold">Unlimited</span>
+								<div className="text-center p-4 bg-indigo-50 rounded-xl border-2 border-indigo-300">
+									<span className="px-3 py-1 bg-indigo-500 text-white rounded text-xs font-bold">PRO</span>
+									<p className="text-2xl font-black text-indigo-600 mt-3">€12</p>
+									<p className="text-sm text-indigo-600 mt-1">Unlimited</p>
 								</div>
-								<div className="flex items-center justify-between p-4 bg-violet-50 rounded-xl border-2 border-violet-200">
-									<div className="flex items-center gap-4">
-										<span className="px-3 py-1.5 bg-violet-600 text-white rounded text-sm font-bold">CLINIC</span>
-										<span className="text-xl text-zinc-800 font-bold">€200/month</span>
-									</div>
-									<span className="text-lg text-violet-600 font-semibold">20 seats</span>
+								<div className="text-center p-4 bg-violet-50 rounded-xl">
+									<span className="px-3 py-1 bg-violet-600 text-white rounded text-xs font-bold">CLINIC</span>
+									<p className="text-2xl font-black text-violet-600 mt-3">€200</p>
+									<p className="text-sm text-violet-600 mt-1">20 seats</p>
 								</div>
 							</div>
 						</div>
 
-						{/* Unit Economics */}
-						<div className="grid grid-cols-3 gap-4 flex-1">
-							{[
-								{ label: "CAC", value: "€35", color: "bg-rose-500" },
-								{ label: "LTV", value: "€252", color: "bg-violet-500" },
-								{ label: "LTV:CAC", value: "7.2x", color: "bg-emerald-500" }
-							].map((metric, i) => (
-								<motion.div
-									key={i}
-									initial={{ y: 20, opacity: 0 }}
-									animate={{ y: 0, opacity: 1 }}
-									transition={{ delay: i * 0.1 }}
-									className="bg-white rounded-2xl border border-zinc-100 p-5 shadow-sm text-center flex flex-col justify-center"
-								>
-									<div className={cn("w-3 h-3 rounded-full mx-auto mb-3", metric.color)} />
-									<p className="text-base font-bold text-zinc-400 uppercase">{metric.label}</p>
-									<p className="text-3xl font-black text-zinc-900 mt-2">{metric.value}</p>
-								</motion.div>
-							))}
+						{/* Costs & Unit Economics */}
+						<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex-1 flex flex-col">
+							<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-5">Costs & Unit Economics</h3>
+							
+							{/* Cost breakdown */}
+							<div className="grid grid-cols-2 gap-4 mb-5">
+								<div className="bg-zinc-50 rounded-xl p-4">
+									<p className="text-xs text-zinc-400 uppercase font-bold mb-1">Monthly Fixed</p>
+									<p className="text-3xl font-black text-zinc-800">€600</p>
+									<p className="text-xs text-zinc-500 mt-1">Infra + AI + Marketing</p>
+								</div>
+								<div className="bg-emerald-50 rounded-xl p-4">
+									<p className="text-xs text-emerald-600 uppercase font-bold mb-1">Per Document</p>
+									<p className="text-3xl font-black text-emerald-700">€0.02</p>
+									<p className="text-xs text-emerald-600 mt-1">Variable AI cost</p>
+								</div>
+							</div>
+
+							{/* Unit Economics */}
+							<div className="grid grid-cols-3 gap-3 flex-1">
+								<div className="bg-indigo-50 rounded-xl p-4 flex flex-col justify-center text-center">
+									<p className="text-xs text-indigo-500 uppercase font-bold">CAC</p>
+									<p className="text-2xl font-black text-indigo-700 mt-1">€35</p>
+									<p className="text-xs text-indigo-400">Acquisition</p>
+								</div>
+								<div className="bg-violet-50 rounded-xl p-4 flex flex-col justify-center text-center">
+									<p className="text-xs text-violet-500 uppercase font-bold">LTV</p>
+									<p className="text-2xl font-black text-violet-700 mt-1">€252</p>
+									<p className="text-xs text-violet-400">Lifetime Value</p>
+								</div>
+								<div className="bg-emerald-50 rounded-xl p-4 flex flex-col justify-center text-center">
+									<p className="text-xs text-emerald-500 uppercase font-bold">LTV:CAC</p>
+									<p className="text-2xl font-black text-emerald-700 mt-1">7.2x</p>
+									<p className="text-xs text-emerald-400">Healthy ratio</p>
+								</div>
+							</div>
 						</div>
 					</div>
 
-					{/* Right Column */}
-					<div className="flex flex-col gap-6 h-full">
-						{/* Break-even */}
-						<div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white text-center">
-							<p className="text-lg font-bold opacity-80">Break-even Point</p>
-							<p className="text-5xl font-black mt-2">70 Users</p>
-							<p className="text-lg opacity-70 mt-2">Projected in 4-6 months</p>
+					{/* Right: Growth Chart with Break-even */}
+					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+						<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-4">Growth & Break-even</h3>
+						
+						{/* Visual Chart */}
+						<div className="flex-1 flex items-end gap-8 pb-8 pt-10">
+							{/* Break-even marker */}
+							<motion.div
+								initial={{ height: 0 }}
+								animate={{ height: '12%' }}
+								transition={{ delay: 0.2, duration: 0.5 }}
+								className="flex-1 bg-emerald-500 rounded-t-xl relative"
+							>
+								<div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+									<span className="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">Break-even</span>
+								</div>
+								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500 whitespace-nowrap">Mo 4-6</div>
+							</motion.div>
+							
+							{/* Year 1 */}
+							<motion.div
+								initial={{ height: 0 }}
+								animate={{ height: '25%' }}
+								transition={{ delay: 0.4, duration: 0.5 }}
+								className="flex-1 bg-indigo-400 rounded-t-xl relative"
+							>
+								<div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-bold text-indigo-600">€84K</div>
+								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y1</div>
+							</motion.div>
+							
+							{/* Year 2 */}
+							<motion.div
+								initial={{ height: 0 }}
+								animate={{ height: '50%' }}
+								transition={{ delay: 0.6, duration: 0.5 }}
+								className="flex-1 bg-indigo-500 rounded-t-xl relative"
+							>
+								<div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-bold text-indigo-600">€420K</div>
+								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y2</div>
+							</motion.div>
+							
+							{/* Year 3 */}
+							<motion.div
+								initial={{ height: 0 }}
+								animate={{ height: '90%' }}
+								transition={{ delay: 0.8, duration: 0.5 }}
+								className="flex-1 bg-gradient-to-t from-indigo-600 to-violet-600 rounded-t-xl relative"
+							>
+								<div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xl font-black text-violet-600">€1.34M</div>
+								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y3</div>
+							</motion.div>
 						</div>
 
-						{/* 3-Year Projection */}
-						<div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden shadow-sm flex-1">
-							<table className="w-full h-full text-lg">
-								<thead>
-									<tr className="bg-zinc-800 text-white">
-										<th className="text-left p-4 font-bold">Metric</th>
-										<th className="text-center p-4 font-bold">Y1</th>
-										<th className="text-center p-4 font-bold">Y2</th>
-										<th className="text-center p-4 font-bold">Y3</th>
-									</tr>
-								</thead>
-								<tbody>
-									{[
-										{ metric: "Users", y1: "500", y2: "2,500", y3: "8,000", highlight: false },
-										{ metric: "ARR", y1: "€84K", y2: "€420K", y3: "€1.34M", highlight: true },
-										{ metric: "Margin", y1: "50%", y2: "66%", y3: "69%", highlight: true }
-									].map((row, i) => (
-										<tr key={i} className={cn("border-b border-zinc-100", row.highlight && "bg-emerald-50")}>
-											<td className={cn("p-4 font-semibold", row.highlight ? "text-emerald-800" : "text-zinc-700")}>{row.metric}</td>
-											<td className="p-4 text-center text-zinc-600">{row.y1}</td>
-											<td className="p-4 text-center text-zinc-600">{row.y2}</td>
-											<td className={cn("p-4 text-center font-bold text-xl", row.highlight ? "text-emerald-700" : "text-zinc-800")}>{row.y3}</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
+						{/* Bottom stats */}
+						<div className="grid grid-cols-3 gap-4 pt-4 border-t border-zinc-100 mt-4">
+							<div className="text-center">
+								<p className="text-xs text-zinc-400">Break-even</p>
+								<p className="text-xl font-black text-emerald-600">70 users</p>
+							</div>
+							<div className="text-center">
+								<p className="text-xs text-zinc-400">Y3 Users</p>
+								<p className="text-xl font-black text-zinc-800">8,000</p>
+							</div>
+							<div className="text-center">
+								<p className="text-xs text-zinc-400">Y3 Margin</p>
+								<p className="text-xl font-black text-emerald-600">69%</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			)
 		},
 
-		// SLIDE 7: AI Architecture (Old Slide 5)
+		// SLIDE 7: AI Architecture (Simplified)
 		{
 			id: 'technology',
 			title: "AI ARCHITECTURE",
 			subtitle: "Fine-Tuned for Romanian Healthcare",
 			content: (
-				<div className="flex flex-col items-center justify-center h-full space-y-12">
-					<div className="flex items-center gap-8 w-full px-8">
+				<div className="flex flex-col items-center justify-center h-full gap-10">
+					{/* Pipeline Flow - Main Visual */}
+					<div className="flex items-center gap-8 w-full max-w-5xl">
 						{/* Input */}
 						<motion.div
 							initial={{ x: -50, opacity: 0 }}
 							animate={{ x: 0, opacity: 1 }}
 							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
 						>
-							<div className="w-20 h-20 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-zinc-600">
+							<div className="w-20 h-20 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center mb-5 text-zinc-600">
 								<Mic size={40} />
 							</div>
 							<h3 className="text-2xl font-bold text-zinc-900">Raw Audio</h3>
 							<p className="text-lg text-zinc-500 mt-2">Romanian • Medical • Noisy</p>
 						</motion.div>
 
-						<ArrowRight size={48} className="text-zinc-300" />
+						<ArrowRight size={48} className="text-zinc-300 shrink-0" />
 
 						{/* Processing */}
 						<motion.div
@@ -536,19 +593,19 @@ const Presentation = () => {
 						>
 							<div className="absolute inset-0 bg-white/10 opacity-20" />
 							<div className="relative z-10">
-								<div className="flex justify-center gap-6 mb-6">
+								<div className="flex justify-center gap-6 mb-5">
 									<Cpu size={48} />
 									<Database size={48} />
 								</div>
 								<h3 className="text-3xl font-black mb-4">Core Engine</h3>
-								<div className="space-y-3 text-xl font-medium text-indigo-100">
-									<p>1. Groq Whisper (Fine-tuned)</p>
-									<p>2. Gemini Pro (Extraction)</p>
+								<div className="space-y-2 text-xl font-medium text-indigo-100">
+									<p>Groq Whisper → Gemini Pro</p>
 								</div>
+								<p className="text-indigo-200 mt-3 text-base">{"< 10s processing • 98% accuracy"}</p>
 							</div>
 						</motion.div>
 
-						<ArrowRight size={48} className="text-zinc-300" />
+						<ArrowRight size={48} className="text-zinc-300 shrink-0" />
 
 						{/* Output */}
 						<motion.div
@@ -557,7 +614,7 @@ const Presentation = () => {
 							transition={{ delay: 0.4 }}
 							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
 						>
-							<div className="w-20 h-20 bg-emerald-100 rounded-2xl mx-auto flex items-center justify-center mb-6 text-emerald-600">
+							<div className="w-20 h-20 bg-emerald-100 rounded-2xl mx-auto flex items-center justify-center mb-5 text-emerald-600">
 								<CheckCircle2 size={40} />
 							</div>
 							<h3 className="text-2xl font-bold text-zinc-900">Structured Data</h3>
@@ -565,25 +622,30 @@ const Presentation = () => {
 						</motion.div>
 					</div>
 
-					<div className="grid grid-cols-3 gap-12 w-full max-w-5xl">
-						{[
-							{ label: "Processing Time", value: "< 10s", desc: "Real-time" },
-							{ label: "Complexity", value: "O(n)", desc: "Linear scaling" },
-							{ label: "Medical Accuracy", value: "98%", desc: "Validated dataset" }
-						].map((stat, i) => (
-							<motion.div
-								key={i}
-								className="text-center"
-								initial={{ y: 20, opacity: 0 }}
-								animate={{ y: 0, opacity: 1 }}
-								transition={{ delay: 0.5 + i * 0.1 }}
-							>
-								<p className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-2">{stat.label}</p>
-								<p className="text-5xl font-black text-zinc-800">{stat.value}</p>
-								<p className="text-lg font-medium text-indigo-600 mt-1">{stat.desc}</p>
-							</motion.div>
-						))}
-					</div>
+					{/* Key Resources & Activities - Simple Tags */}
+					<motion.div
+						initial={{ y: 20, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						transition={{ delay: 0.5 }}
+						className="flex gap-16 text-center"
+					>
+						<div>
+							<p className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-3">Key Resources</p>
+							<div className="flex flex-wrap gap-2 justify-center">
+								{["Medical Dataset", "Fine-tuned Models", "GCP Infrastructure"].map((r, i) => (
+									<span key={i} className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">{r}</span>
+								))}
+							</div>
+						</div>
+						<div>
+							<p className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-3">Key Activities</p>
+							<div className="flex flex-wrap gap-2 justify-center">
+								{["Model Training", "Platform Dev", "Accuracy Validation"].map((a, i) => (
+									<span key={i} className="px-4 py-2 bg-violet-50 text-violet-700 rounded-full text-sm font-medium">{a}</span>
+								))}
+							</div>
+						</div>
+					</motion.div>
 				</div>
 			)
 		}
