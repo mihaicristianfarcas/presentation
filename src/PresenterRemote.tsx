@@ -1,15 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Radio } from 'lucide-react';
-
-const slideNames = [
-	"Title",
-	"The Problem",
-	"Market Opportunity",
-	"Competition",
-	"Value Proposition",
-	"Business Model",
-	"AI Architecture"
-];
+import { SLIDE_INFO } from './App';
 
 const PresenterRemote = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -103,8 +94,8 @@ const PresenterRemote = () => {
 			{/* Current Slide Preview */}
 			<div className="bg-zinc-800 rounded-2xl p-6 mb-6">
 				<p className="text-zinc-400 text-sm mb-2">Current Slide</p>
-				<p className="text-4xl font-black text-indigo-400">{currentSlide + 1} / {slideNames.length}</p>
-				<p className="text-xl font-medium mt-2">{slideNames[currentSlide]}</p>
+				<p className="text-4xl font-black text-indigo-400">{currentSlide + 1} / {SLIDE_INFO.length}</p>
+				<p className="text-xl font-medium mt-2">{SLIDE_INFO[currentSlide]?.name}</p>
 			</div>
 
 			{/* Navigation Buttons */}
@@ -119,7 +110,7 @@ const PresenterRemote = () => {
 				</button>
 				<button
 					onClick={nextSlide}
-					disabled={currentSlide === slideNames.length - 1}
+					disabled={currentSlide === SLIDE_INFO.length - 1}
 					className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:hover:bg-indigo-600 rounded-2xl p-8 flex flex-col items-center justify-center gap-3 transition-colors active:scale-95"
 				>
 					<ChevronRight size={48} />
@@ -131,7 +122,7 @@ const PresenterRemote = () => {
 			<div className="flex-1 overflow-auto">
 				<p className="text-zinc-400 text-sm mb-3">Jump to Slide</p>
 				<div className="space-y-2">
-					{slideNames.map((name, i) => (
+					{SLIDE_INFO.map((slide, i) => (
 						<button
 							key={i}
 							onClick={() => goToSlide(i)}
@@ -142,7 +133,7 @@ const PresenterRemote = () => {
 							}`}
 						>
 							<span className="font-bold mr-3">{i + 1}.</span>
-							{name}
+							{slide.name}
 						</button>
 					))}
 				</div>

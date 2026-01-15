@@ -48,7 +48,8 @@ export default defineConfig({
 						try {
 							const msg = JSON.parse(data.toString());
 							if (msg.type === "goto") {
-								currentSlide = msg.slide;
+								// Clamp to valid range (7 slides = indices 0-6)
+								currentSlide = Math.max(0, Math.min(msg.slide, 6));
 								// Broadcast to all clients
 								clients.forEach((client) => {
 									if (client.readyState === 1) {

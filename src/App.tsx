@@ -13,6 +13,18 @@ function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
+// Slide metadata - update this when adding/removing slides
+export const SLIDE_INFO = [
+	{ id: 'title', name: 'Title' },
+	{ id: 'problem', name: 'The Problem' },
+	{ id: 'market', name: 'Market Opportunity' },
+	{ id: 'competition', name: 'Competition' },
+	{ id: 'value-prop', name: 'Value Proposition' },
+	{ id: 'financials', name: 'Business Model' },
+	{ id: 'technology', name: 'AI Architecture' },
+];
+export const TOTAL_SLIDES = SLIDE_INFO.length;
+
 const Presentation = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [direction, setDirection] = useState(0);
@@ -33,15 +45,19 @@ const Presentation = () => {
 				const msg = JSON.parse(event.data);
 				if (msg.type === 'next') {
 					setDirection(1);
-					setCurrentSlide((prev) => Math.min(prev + 1, 6)); // 7 slides (0-6)
+					setCurrentSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES - 1));
 				} else if (msg.type === 'prev') {
 					setDirection(-1);
 					setCurrentSlide((prev) => Math.max(prev - 1, 0));
 				} else if (msg.type === 'sync') {
-					const newSlide = msg.slide;
+					// Clamp slide index to valid range
+					const newSlide = Math.max(0, Math.min(msg.slide, TOTAL_SLIDES - 1));
 					// Use functional update to get correct direction
 					setCurrentSlide((prev) => {
-						setDirection(newSlide > prev ? 1 : newSlide < prev ? -1 : 0);
+						// Only update direction if slide actually changed
+						if (newSlide !== prev) {
+							setDirection(newSlide > prev ? 1 : -1);
+						}
 						return newSlide;
 					});
 					if (msg.ip) {
@@ -831,9 +847,9 @@ const Presentation = () => {
 					</div>
 				</div>
 
-				{/* Remote URL */}
-				{networkIP && (
-					<div className="text-xs text-zinc-300 font-mono">
+				{/* Remote URL - only on title slide */}
+				{networkIP && currentSlide === 0 && (
+					<div className="text-[10px] text-zinc-300/30 font-mono">
 						{networkIP}:5173/present
 					</div>
 				)}
