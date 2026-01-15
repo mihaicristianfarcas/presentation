@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-	ChevronLeft, ChevronRight, Mic, Layout, Users, BarChart3, Target, PieChart,
+	ChevronLeft, ChevronRight, Mic, Layout, Users, Target, PieChart,
 	TrendingUp, CheckCircle2, Zap, Shield, Clock, DollarSign, Award, Layers,
 	ArrowRight, Globe, Building2, UserCheck, Briefcase, Database, Cpu, HeartPulse,
 	FileText, AlertCircle
@@ -22,6 +22,7 @@ export const SLIDE_INFO = [
 	{ id: 'value-prop', name: 'Value Proposition' },
 	{ id: 'financials', name: 'Business Model' },
 	{ id: 'technology', name: 'AI Architecture' },
+	{ id: 'results', name: 'Experimental Results' },
 ];
 export const TOTAL_SLIDES = SLIDE_INFO.length;
 
@@ -35,11 +36,11 @@ const Presentation = () => {
 	useEffect(() => {
 		const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 		const socket = new WebSocket(`${protocol}//${window.location.host}/ws`);
-		
+
 		socket.onopen = () => {
 			setWs(socket);
 		};
-		
+
 		socket.onmessage = (event) => {
 			try {
 				const msg = JSON.parse(event.data);
@@ -68,11 +69,11 @@ const Presentation = () => {
 				console.error('WS parse error:', e);
 			}
 		};
-		
+
 		socket.onclose = () => {
 			setWs(null);
 		};
-		
+
 		return () => {
 			socket.close();
 		};
@@ -518,7 +519,7 @@ const Presentation = () => {
 						{/* Costs & Unit Economics */}
 						<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex-1 flex flex-col">
 							<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-5">Costs & Unit Economics</h3>
-							
+
 							{/* Cost breakdown */}
 							<div className="grid grid-cols-2 gap-4 mb-5">
 								<div className="bg-zinc-50 rounded-xl p-4">
@@ -557,7 +558,7 @@ const Presentation = () => {
 					{/* Right: Growth Chart with Break-even */}
 					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
 						<h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-4">Growth & Break-even</h3>
-						
+
 						{/* Visual Chart */}
 						<div className="flex-1 flex items-end gap-8 pb-8 pt-10">
 							{/* Break-even marker */}
@@ -572,7 +573,7 @@ const Presentation = () => {
 								</div>
 								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500 whitespace-nowrap">Mo 4-6</div>
 							</motion.div>
-							
+
 							{/* Year 1 */}
 							<motion.div
 								initial={{ height: 0 }}
@@ -583,7 +584,7 @@ const Presentation = () => {
 								<div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-bold text-indigo-600">€84K</div>
 								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y1</div>
 							</motion.div>
-							
+
 							{/* Year 2 */}
 							<motion.div
 								initial={{ height: 0 }}
@@ -594,7 +595,7 @@ const Presentation = () => {
 								<div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-bold text-indigo-600">€420K</div>
 								<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm font-medium text-zinc-500">Y2</div>
 							</motion.div>
-							
+
 							{/* Year 3 */}
 							<motion.div
 								initial={{ height: 0 }}
@@ -627,92 +628,312 @@ const Presentation = () => {
 			)
 		},
 
-		// SLIDE 7: AI Architecture (Simplified)
+		// SLIDE 7: The Full AI Pipeline
 		{
 			id: 'technology',
-			title: "AI ARCHITECTURE",
-			subtitle: "Fine-Tuned for Romanian Healthcare",
+			title: "THE AI PIPELINE",
+			subtitle: "End-to-End Architecture for Medical Documentation",
 			content: (
-				<div className="flex flex-col items-center justify-center h-full gap-10">
-					{/* Pipeline Flow - Main Visual */}
-					<div className="flex items-center gap-8 w-full max-w-5xl">
-						{/* Input */}
-						<motion.div
-							initial={{ x: -50, opacity: 0 }}
-							animate={{ x: 0, opacity: 1 }}
-							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
-						>
-							<div className="w-20 h-20 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center mb-5 text-zinc-600">
-								<Mic size={40} />
-							</div>
-							<h3 className="text-2xl font-bold text-zinc-900">Raw Audio</h3>
-							<p className="text-lg text-zinc-500 mt-2">Romanian • Medical • Noisy</p>
-						</motion.div>
+				<div className="flex flex-col h-full">
+					{/* Main Pipeline - Horizontal Flow */}
+					<div className="flex-1 flex items-center justify-center" >
+						<div className="flex items-center gap-6 w-full max-w-7xl px-4">
 
-						<ArrowRight size={48} className="text-zinc-300 shrink-0" />
-
-						{/* Processing */}
-						<motion.div
-							initial={{ scale: 0.9, opacity: 0 }}
-							animate={{ scale: 1, opacity: 1 }}
-							transition={{ delay: 0.2 }}
-							className="flex-[1.5] bg-gradient-to-br from-indigo-600 to-violet-700 p-10 rounded-3xl shadow-xl text-center text-white relative overflow-hidden"
-						>
-							<div className="absolute inset-0 bg-white/10 opacity-20" />
-							<div className="relative z-10">
-								<div className="flex justify-center gap-6 mb-5">
-									<Cpu size={48} />
-									<Database size={48} />
+							{/* 1. Input: Raw Audio */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								className="w-28 shrink-0 flex flex-col items-center text-center"
+							>
+								<div className="w-16 h-16 bg-zinc-100 rounded-2xl flex items-center justify-center text-zinc-500 mb-2 shadow-sm">
+									<Mic size={28} />
 								</div>
-								<h3 className="text-3xl font-black mb-4">Core Engine</h3>
-								<div className="space-y-2 text-xl font-medium text-indigo-100">
-									<p>Groq Whisper → Gemini Pro</p>
+								<span className="text-sm font-bold text-zinc-700">Audio</span>
+							</motion.div>
+
+							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
+
+							{/* 2. Preprocessing */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.1 }}
+								className="w-44 h-40 shrink-0 bg-zinc-50 border border-zinc-200 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm"
+							>
+								<div className="text-xs font-bold text-zinc-600 uppercase tracking-wide mb-1">Preprocess</div>
+								<div className="text-[11px] text-zinc-500 font-medium">
+									Mel-Spectrogram
 								</div>
-								<p className="text-indigo-200 mt-3 text-base">{"< 10s processing • 98% accuracy"}</p>
-							</div>
-						</motion.div>
+							</motion.div>
 
-						<ArrowRight size={48} className="text-zinc-300 shrink-0" />
+							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
 
-						{/* Output */}
-						<motion.div
-							initial={{ x: 50, opacity: 0 }}
-							animate={{ x: 0, opacity: 1 }}
-							transition={{ delay: 0.4 }}
-							className="flex-1 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm text-center"
-						>
-							<div className="w-20 h-20 bg-emerald-100 rounded-2xl mx-auto flex items-center justify-center mb-5 text-emerald-600">
-								<CheckCircle2 size={40} />
+							{/* 3. ASR: Whisper */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.2 }}
+								className="w-44 h-40 shrink-0 bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200 rounded-2xl p-5 relative flex flex-col items-center justify-center shadow-md"
+							>
+								<div className="absolute -top-3 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">ASR</div>
+								<div className="flex flex-col items-center text-center gap-2 mt-1">
+									<div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white shadow-sm">
+										<Zap size={20} />
+									</div>
+									<div>
+										<h4 className="font-bold text-indigo-900">Whisper Small</h4>
+										<p className="text-xs text-indigo-600 font-medium mt-0.5">Fine-Tuned</p>
+									</div>
+								</div>
+							</motion.div>
+
+							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
+
+							{/* 4. Refiner: Gemini 2.5
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.3 }}
+								className="w-44 h-40 shrink-0 bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white rounded-2xl p-5 flex flex-col items-center justify-center text-center shadow-lg"
+							>
+								<div className="text-[10px] font-bold uppercase tracking-wide opacity-80 mb-2">Refiner</div>
+								<Shield size={24} className="mx-auto mb-2" />
+								<h4 className="font-bold">Gemini 2.5</h4>
+								<p className="text-[10px] opacity-90 mt-1">"Contextual Healing"</p>
+							</motion.div>
+
+							<ArrowRight size={24} className="text-zinc-300 shrink-0" /> */}
+
+							{/* 5. Extraction: Llama 3.1 */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.4 }}
+								className="w-44 h-40 shrink-0 bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 rounded-2xl p-5 relative flex flex-col items-center justify-center shadow-md"
+							>
+								<div className="absolute -top-3 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">EXTRACTION</div>
+								<div className="flex flex-col items-center text-center gap-2 mt-1">
+									<div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-sm">
+										<Database size={20} />
+									</div>
+									<div>
+										<h4 className="font-bold text-emerald-900">Llama 3.1 8B</h4>
+										<p className="text-xs text-emerald-600 font-medium mt-0.5">Local JSON</p>
+									</div>
+								</div>
+							</motion.div>
+
+							<ArrowRight size={24} className="text-zinc-300 shrink-0" />
+
+							{/* 6. Output: DOCX */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.5 }}
+								className="w-28 shrink-0 flex flex-col items-center text-center"
+							>
+								<div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 mb-2 shadow-sm">
+									<FileText size={28} />
+								</div>
+								<span className="text-sm font-bold text-zinc-700">DOCX</span>
+							</motion.div>
+						</div>
+					</div >
+
+					{/* Bottom Stats Row */}
+					< motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 0.6 }}
+						className="flex justify-center gap-12 py-8"
+					>
+						{
+							[
+								{ label: "Latency", val: "2.3s/min", icon: Clock },
+								{ label: "GPU", val: "A100", icon: Cpu },
+								{ label: "Privacy", val: "Local", icon: Shield }
+							].map((stat, i) => (
+								<div key={i} className="flex items-center gap-3">
+									<div className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400">
+										<stat.icon size={16} />
+									</div>
+									<div>
+										<div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">{stat.label}</div>
+										<div className="text-lg font-bold text-zinc-700">{stat.val}</div>
+									</div>
+								</div>
+							))
+						}
+					</motion.div >
+				</div >
+			)
+
+		},
+
+		// SLIDE 8: Experimental Results (4-Quadrant Dashboard)
+		{
+			id: 'results',
+			title: "EXPERIMENTAL VALIDATION",
+			subtitle: "Rigorous Training & Comparative Analysis",
+			content: (
+				<div className="grid grid-cols-2 gap-6 h-full">
+					{/* Q1: ASR Training Curve - All 5 Checkpoints */}
+					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+						<div className="flex items-center justify-between mb-4">
+							<div className="flex items-center gap-3">
+								<div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600">
+									<TrendingUp size={20} />
+								</div>
+								<div>
+									<h3 className="text-lg font-bold text-zinc-800">ASR Training Curve</h3>
+									<p className="text-xs text-zinc-500">WER % across checkpoints (~4 days training)</p>
+								</div>
 							</div>
-							<h3 className="text-2xl font-bold text-zinc-900">Structured Data</h3>
-							<p className="text-lg text-zinc-500 mt-2">DOCX • ICD-10 • Vitals</p>
-						</motion.div>
+							<span className="px-2 py-1 bg-rose-100 text-rose-600 text-[10px] font-bold rounded">Overfitting at 3K</span>
+						</div>
+
+						<div className="flex-1 flex items-end gap-3 pt-6 pb-2">
+							{[
+								{ step: "0", wer: 35.2, col: "bg-zinc-300", best: false },
+								{ step: "500", wer: 26.8, col: "bg-indigo-300", best: false },
+								{ step: "1000", wer: 24.1, col: "bg-gradient-to-t from-indigo-600 to-violet-600", best: true },
+								{ step: "1500", wer: 24.7, col: "bg-indigo-400", best: false },
+								{ step: "3000", wer: 27.3, col: "bg-rose-400", best: false }
+							].map((cp, i) => (
+								<motion.div
+									key={i}
+									initial={{ height: 0 }}
+									animate={{ height: `${(cp.wer / 40) * 100}%` }}
+									transition={{ delay: 0.1 + i * 0.08, duration: 0.4 }}
+									className={`flex-1 ${cp.col} rounded-t-lg relative ${cp.best ? 'ring-2 ring-violet-500 ring-offset-2' : ''}`}
+								>
+									<div className={`absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-black ${cp.best ? 'text-violet-600' : 'text-zinc-600'}`}>{cp.wer}%</div>
+									<div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-zinc-500">{cp.step}</div>
+								</motion.div>
+							))}
+						</div>
+						<div className="text-center text-[10px] text-zinc-400 mt-6">Training Steps</div>
 					</div>
 
-					{/* Key Resources & Activities - Simple Tags */}
-					<motion.div
-						initial={{ y: 20, opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						transition={{ delay: 0.5 }}
-						className="flex gap-16 text-center"
-					>
-						<div>
-							<p className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-3">Key Resources</p>
-							<div className="flex flex-wrap gap-2 justify-center">
-								{["Medical Dataset", "Fine-tuned Models", "GCP Infrastructure"].map((r, i) => (
-									<span key={i} className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">{r}</span>
-								))}
+					{/* Q2: LLM Comparison - Precision vs Recall */}
+					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+						<div className="flex items-center gap-3 mb-4">
+							<div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600">
+								<Target size={20} />
+							</div>
+							<div>
+								<h3 className="text-lg font-bold text-zinc-800">LLM Extraction</h3>
+								<p className="text-xs text-zinc-500">Llama 3.1 8B vs Gemini 2.0 Flash</p>
 							</div>
 						</div>
-						<div>
-							<p className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-3">Key Activities</p>
-							<div className="flex flex-wrap gap-2 justify-center">
-								{["Model Training", "Platform Dev", "Accuracy Validation"].map((a, i) => (
-									<span key={i} className="px-4 py-2 bg-violet-50 text-violet-700 rounded-full text-sm font-medium">{a}</span>
-								))}
+
+						<div className="flex-1 flex flex-col justify-center space-y-4">
+							{/* Precision */}
+							<div>
+								<div className="flex justify-between text-xs font-bold mb-1">
+									<span className="text-zinc-600">Precision (No Hallucinations)</span>
+									<span className="text-emerald-600">Llama wins ✓</span>
+								</div>
+								<div className="space-y-1">
+									<div className="flex items-center gap-2">
+										<span className="text-[10px] w-12 text-right font-medium text-emerald-700">Llama</span>
+										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+											<motion.div initial={{ width: 0 }} animate={{ width: "87.9%" }} transition={{ delay: 0.3, duration: 0.6 }} className="h-full bg-emerald-500 rounded-full flex items-center justify-end pr-2">
+												<span className="text-[10px] font-bold text-white">87.9%</span>
+											</motion.div>
+										</div>
+									</div>
+									<div className="flex items-center gap-2">
+										<span className="text-[10px] w-12 text-right font-medium text-zinc-500">Gemini</span>
+										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+											<motion.div initial={{ width: 0 }} animate={{ width: "85.8%" }} transition={{ delay: 0.4, duration: 0.6 }} className="h-full bg-zinc-400 rounded-full flex items-center justify-end pr-2">
+												<span className="text-[10px] font-bold text-white">85.8%</span>
+											</motion.div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{/* Recall */}
+							<div>
+								<div className="flex justify-between text-xs font-bold mb-1">
+									<span className="text-zinc-600">Recall (Coverage)</span>
+									<span className="text-zinc-400">Gemini leads</span>
+								</div>
+								<div className="space-y-1">
+									<div className="flex items-center gap-2">
+										<span className="text-[10px] w-12 text-right font-medium text-indigo-700">Llama</span>
+										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+											<motion.div initial={{ width: 0 }} animate={{ width: "93.6%" }} transition={{ delay: 0.5, duration: 0.6 }} className="h-full bg-indigo-500 rounded-full flex items-center justify-end pr-2">
+												<span className="text-[10px] font-bold text-white">93.6%</span>
+											</motion.div>
+										</div>
+									</div>
+									<div className="flex items-center gap-2">
+										<span className="text-[10px] w-12 text-right font-medium text-zinc-500">Gemini</span>
+										<div className="flex-1 h-5 bg-zinc-100 rounded-full overflow-hidden">
+											<motion.div initial={{ width: 0 }} animate={{ width: "96.4%" }} transition={{ delay: 0.6, duration: 0.6 }} className="h-full bg-zinc-400 rounded-full flex items-center justify-end pr-2">
+												<span className="text-[10px] font-bold text-white">96.4%</span>
+											</motion.div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</motion.div>
+						<p className="text-sm text-center text-emerald-600 font-medium mt-2">"In medicine, hallucinating a value is worse than missing one."</p>
+					</div>
+
+					{/* Q3: Training Stats */}
+					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm">
+						<h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wide mb-4">Training Effort</h3>
+						<div className="grid grid-cols-2 gap-4 h-[calc(100%-2rem)]">
+							{/* Whisper */}
+							<div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4 flex flex-col justify-center">
+								<div className="text-indigo-500 font-bold text-xs uppercase mb-2">Whisper ASR</div>
+								<div className="text-3xl font-black text-indigo-700">~4 days</div>
+								<div className="text-xs text-indigo-600 mt-1">27K samples • 3K steps</div>
+							</div>
+							{/* Llama */}
+							<div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 flex flex-col justify-center">
+								<div className="text-emerald-500 font-bold text-xs uppercase mb-2">Llama LLM</div>
+								<div className="text-3xl font-black text-emerald-700">{"< 4 hrs"}</div>
+								<div className="text-xs text-emerald-600 mt-1">200K samples • 2K steps</div>
+							</div>
+						</div>
+					</div>
+
+					{/* Q4: Error Reduction Funnel */}
+					<div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-sm flex flex-col">
+						<h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wide mb-4">WER Reduction Pipeline</h3>
+						<div className="flex-1 flex items-center justify-center">
+							<div className="flex items-center gap-2">
+								{/* Start */}
+								<div className="text-center">
+									<div className="w-16 h-16 bg-zinc-200 rounded-xl flex items-center justify-center">
+										<span className="text-xl font-black text-zinc-600">35.2</span>
+									</div>
+									<span className="text-[10px] text-zinc-500 font-medium">Baseline</span>
+								</div>
+								<div className="text-zinc-300"><ArrowRight size={16} /></div>
+								{/* After Fine-tune */}
+								<div className="text-center">
+									<div className="w-16 h-16 bg-indigo-100 rounded-xl flex flex-col items-center justify-center">
+										<span className="text-xl font-black text-indigo-600">24.1</span>
+										<span className="text-[9px] text-indigo-500 font-bold">-31.5%</span>
+									</div>
+									<span className="text-[10px] text-indigo-600 font-medium">Fine-Tuned</span>
+								</div>
+								<div className="text-zinc-300"><ArrowRight size={16} /></div>
+								{/* After Gemini */}
+								<div className="text-center">
+									<div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-xl flex flex-col items-center justify-center shadow-lg">
+										<span className="text-2xl font-black text-white">22.6</span>
+										<span className="text-[9px] text-white/80 font-bold">-35.8%</span>
+									</div>
+									<span className="text-[10px] text-violet-600 font-bold">+ LLama</span>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			)
 		}
