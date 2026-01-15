@@ -16,7 +16,7 @@ const PresenterRemote = () => {
 			const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 			const wsUrl = `${protocol}//${window.location.host}/ws`;
 			console.log('Connecting to:', wsUrl);
-			
+
 			socket = new WebSocket(wsUrl);
 
 			socket.onopen = () => {
@@ -84,7 +84,7 @@ const PresenterRemote = () => {
 					{connected ? 'Connected' : 'Connecting...'}
 				</div>
 			</div>
-			
+
 			{error && (
 				<div className="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg mb-4 text-sm">
 					{error} - retrying...
@@ -126,11 +126,10 @@ const PresenterRemote = () => {
 						<button
 							key={i}
 							onClick={() => goToSlide(i)}
-							className={`w-full text-left px-4 py-3 rounded-xl transition-colors ${
-								i === currentSlide
+							className={`w-full text-left px-4 py-3 rounded-xl transition-colors ${i === currentSlide
 									? 'bg-indigo-600 text-white'
 									: 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
-							}`}
+								}`}
 						>
 							<span className="font-bold mr-3">{i + 1}.</span>
 							{slide.name}

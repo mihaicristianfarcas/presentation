@@ -15,8 +15,8 @@ function cn(...inputs: ClassValue[]) {
 
 // Slide metadata - update this when adding/removing slides
 export const SLIDE_INFO = [
-	{ id: 'title', name: 'Title' },
 	{ id: 'problem', name: 'The Problem' },
+	{ id: 'title', name: 'Title' },
 	{ id: 'market', name: 'Market Opportunity' },
 	{ id: 'competition', name: 'Competition' },
 	{ id: 'value-prop', name: 'Value Proposition' },
@@ -27,10 +27,19 @@ export const SLIDE_INFO = [
 export const TOTAL_SLIDES = SLIDE_INFO.length;
 
 const Presentation = () => {
-	const [currentSlide, setCurrentSlide] = useState(0);
+	const [currentSlide, setCurrentSlide] = useState(() => {
+		const saved = localStorage.getItem('presentation_slide');
+		const initial = saved ? parseInt(saved, 10) : 0;
+		return isNaN(initial) ? 0 : initial;
+	});
 	const [direction, setDirection] = useState(0);
 	const [ws, setWs] = useState<WebSocket | null>(null);
 	const [networkIP, setNetworkIP] = useState<string>('');
+
+	// Save slide to local storage
+	useEffect(() => {
+		localStorage.setItem('presentation_slide', currentSlide.toString());
+	}, [currentSlide]);
 
 	// WebSocket connection for remote control
 	useEffect(() => {
@@ -87,71 +96,7 @@ const Presentation = () => {
 	}, [currentSlide, ws]);
 
 	const slides = [
-		// SLIDE 1: Title
-		{
-			id: 'title',
-			content: (
-				<div className="flex flex-col items-center justify-center h-full text-center space-y-12">
-					<motion.div
-						initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
-						animate={{ scale: 1, opacity: 1, rotate: 0 }}
-						transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-						className="relative"
-					>
-						<div className="w-44 h-44 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-indigo-500/30">
-							<Mic size={88} className="text-white" strokeWidth={1.5} />
-						</div>
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: 1 }}
-							transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
-							className="absolute -top-3 -right-3 w-10 h-10 bg-emerald-400 rounded-full flex items-center justify-center"
-						>
-							<Zap size={20} className="text-white" />
-						</motion.div>
-					</motion.div>
-
-					<div className="space-y-6">
-						<motion.h1
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ delay: 0.2 }}
-							className="text-9xl font-black tracking-tight text-zinc-900"
-						>
-							MaxOn<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">Scribe</span>
-						</motion.h1>
-						<motion.p
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ delay: 0.3 }}
-							className="text-3xl text-zinc-500 font-medium max-w-4xl mx-auto"
-						>
-							AI-Powered Medical Documentation for Romanian Healthcare
-						</motion.p>
-					</div>
-
-					<motion.div
-						initial={{ y: 20, opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						transition={{ delay: 0.4 }}
-						className="flex items-center gap-12 pt-6"
-					>
-						{[
-							{ icon: Mic, label: "Voice-to-Text" },
-							{ icon: Cpu, label: "AI Extraction" },
-							{ icon: Globe, label: "Romanian Native" }
-						].map((item, i) => (
-							<div key={i} className="flex items-center gap-3 text-zinc-500">
-								<item.icon size={24} />
-								<span className="font-semibold text-xl">{item.label}</span>
-							</div>
-						))}
-					</motion.div>
-				</div>
-			)
-		},
-
-		// SLIDE 2: The Problem
+		// SLIDE 1: The Problem
 		{
 			id: 'problem',
 			title: "THE REALITY",
@@ -210,6 +155,70 @@ const Presentation = () => {
 								<span className="text-indigo-600">Typing.</span>
 							</motion.div>
 						</div>
+					</motion.div>
+				</div>
+			)
+		},
+
+		// SLIDE 2: Title
+		{
+			id: 'title',
+			content: (
+				<div className="flex flex-col items-center justify-center h-full text-center space-y-12">
+					<motion.div
+						initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
+						animate={{ scale: 1, opacity: 1, rotate: 0 }}
+						transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+						className="relative"
+					>
+						<div className="w-44 h-44 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-indigo-500/30">
+							<Mic size={88} className="text-white" strokeWidth={1.5} />
+						</div>
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
+							className="absolute -top-3 -right-3 w-10 h-10 bg-emerald-400 rounded-full flex items-center justify-center"
+						>
+							<Zap size={20} className="text-white" />
+						</motion.div>
+					</motion.div>
+
+					<div className="space-y-6">
+						<motion.h1
+							initial={{ y: 20, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ delay: 0.2 }}
+							className="text-9xl font-black tracking-tight text-zinc-900"
+						>
+							MaxOn<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-500">Scribe</span>
+						</motion.h1>
+						<motion.p
+							initial={{ y: 20, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ delay: 0.3 }}
+							className="text-3xl text-zinc-500 font-medium max-w-4xl mx-auto"
+						>
+							AI-Powered Medical Documentation for Romanian Healthcare
+						</motion.p>
+					</div>
+
+					<motion.div
+						initial={{ y: 20, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						transition={{ delay: 0.4 }}
+						className="flex items-center gap-12 pt-6"
+					>
+						{[
+							{ icon: Mic, label: "Voice-to-Text" },
+							{ icon: Cpu, label: "AI Extraction" },
+							{ icon: Globe, label: "Romanian Native" }
+						].map((item, i) => (
+							<div key={i} className="flex items-center gap-3 text-zinc-500">
+								<item.icon size={24} />
+								<span className="font-semibold text-xl">{item.label}</span>
+							</div>
+						))}
 					</motion.div>
 				</div>
 			)
@@ -957,10 +966,24 @@ const Presentation = () => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
 			if (e.key === 'ArrowLeft') prevSlide();
+
+			// Jump to slide with Alt/Option + Number
+			// We use e.code because Option+Number on Mac produces special chars (e.g. ¡ for 1)
+			if (e.altKey && /^Digit[1-9]$/.test(e.code)) {
+				e.preventDefault();
+				const index = parseInt(e.code.replace('Digit', ''), 10) - 1;
+				if (index < slides.length) {
+					// Determine direction for animation
+					if (index !== currentSlide) {
+						setDirection(index > currentSlide ? 1 : -1);
+						setCurrentSlide(index);
+					}
+				}
+			}
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [nextSlide, prevSlide]);
+	}, [nextSlide, prevSlide, currentSlide, slides.length]);
 
 	const variants = {
 		enter: (direction: number) => ({
@@ -1002,7 +1025,7 @@ const Presentation = () => {
 
 			{/* Main Content */}
 			<div className="relative w-full max-w-7xl aspect-[16/9] px-16 z-10">
-				<AnimatePresence initial={false} custom={direction} mode="wait">
+				<AnimatePresence custom={direction} mode="wait">
 					<motion.div
 						key={currentSlide}
 						custom={direction}
@@ -1018,7 +1041,7 @@ const Presentation = () => {
 						className="w-full h-full flex flex-col"
 					>
 						{/* Header */}
-						{currentSlide > 0 && slides[currentSlide].title && (
+						{slides[currentSlide].id !== 'title' && slides[currentSlide].title && (
 							<motion.div
 								initial={{ opacity: 0, y: -10 }}
 								animate={{ opacity: 1, y: 0 }}
@@ -1068,7 +1091,7 @@ const Presentation = () => {
 				</div>
 
 				{/* Remote URL - only on title slide */}
-				{networkIP && currentSlide === 0 && (
+				{networkIP && slides[currentSlide].id === 'title' && (
 					<div className="text-[10px] text-zinc-300/30 font-mono">
 						{networkIP}:5173/present
 					</div>
