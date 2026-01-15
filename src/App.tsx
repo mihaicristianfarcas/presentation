@@ -16,6 +16,58 @@ function cn(...inputs: ClassValue[]) {
 const Presentation = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [direction, setDirection] = useState(0);
+	const [ws, setWs] = useState<WebSocket | null>(null);
+	const [networkIP, setNetworkIP] = useState<string>('');
+
+	// WebSocket connection for remote control
+	useEffect(() => {
+		const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+		const socket = new WebSocket(`${protocol}//${window.location.host}/ws`);
+		
+		socket.onopen = () => {
+			setWs(socket);
+		};
+		
+		socket.onmessage = (event) => {
+			try {
+				const msg = JSON.parse(event.data);
+				if (msg.type === 'next') {
+					setDirection(1);
+					setCurrentSlide((prev) => Math.min(prev + 1, 6)); // 7 slides (0-6)
+				} else if (msg.type === 'prev') {
+					setDirection(-1);
+					setCurrentSlide((prev) => Math.max(prev - 1, 0));
+				} else if (msg.type === 'sync') {
+					const newSlide = msg.slide;
+					// Use functional update to get correct direction
+					setCurrentSlide((prev) => {
+						setDirection(newSlide > prev ? 1 : newSlide < prev ? -1 : 0);
+						return newSlide;
+					});
+					if (msg.ip) {
+						setNetworkIP(msg.ip);
+					}
+				}
+			} catch (e) {
+				console.error('WS parse error:', e);
+			}
+		};
+		
+		socket.onclose = () => {
+			setWs(null);
+		};
+		
+		return () => {
+			socket.close();
+		};
+	}, []);
+
+	// Sync current slide to server when it changes locally
+	useEffect(() => {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify({ type: 'goto', slide: currentSlide }));
+		}
+	}, [currentSlide, ws]);
 
 	const slides = [
 		// SLIDE 1: Title
@@ -778,6 +830,13 @@ const Presentation = () => {
 						))}
 					</div>
 				</div>
+
+				{/* Remote URL */}
+				{networkIP && (
+					<div className="text-xs text-zinc-300 font-mono">
+						{networkIP}:5173/present
+					</div>
+				)}
 			</div>
 		</div>
 	);
